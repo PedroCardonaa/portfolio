@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pedro Cardona | Builder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #000;
+  --frame: #27272a;
+  --frame-hover: #3f3f46;
+  --text: #fafafa;
+  --muted: rgba(255,255,255,0.6);
+  --dim: rgba(255,255,255,0.4);
+  --faint: rgba(255,255,255,0.08);
+  --green: #22c55e;
+  --amber: #f59e0b;
+  --mono: 'JetBrains Mono', monospace;
+  --sans: 'Inter', system-ui, sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+#shader-canvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.container { max-width: 880px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+
+/* Nav */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 18px 0;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--frame);
+}
+nav .inner {
+  max-width: 880px; margin: 0 auto; padding: 0 24px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo {
+  font-family: var(--sans); font-size: 15px; font-weight: 800;
+  color: var(--text); text-decoration: none; letter-spacing: -0.02em;
+}
+.nav-logo span { font-weight: 400; color: var(--muted); }
+.nav-links { display: flex; gap: 28px; }
+.nav-links a {
+  font-size: 13px; color: var(--muted); text-decoration: none;
+  transition: color 0.15s; font-weight: 400;
+}
+.nav-links a:hover { color: var(--text); }
+.nav-status {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 11px; color: var(--green);
+  font-family: var(--mono);
+}
+.status-dot-wrap { position: relative; display: flex; width: 10px; height: 10px; align-items: center; justify-content: center; }
+.status-dot-ping {
+  position: absolute; inset: 0; border-radius: 50%;
+  background: var(--green); opacity: 0.6;
+  animation: ping 2s cubic-bezier(0,0,0.2,1) infinite;
+}
+.status-dot {
+  position: relative; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--green);
+}
+@keyframes ping { 0%{opacity:0.6;transform:scale(0.4)} 80%,100%{opacity:0;transform:scale(2)} }
+
+/* Hero with framed-border treatment */
+.hero-wrap { padding: 120px 0 60px; }
+.frame-outer {
+  border: 1px solid var(--frame);
+  padding: 8px;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(4px);
+}
+.frame-inner {
+  border: 1px solid var(--frame);
+  padding: 56px 32px 48px;
+  position: relative;
+}
+
+.hero-eyebrow {
+  font-family: var(--mono); font-size: 11px; color: var(--dim);
+  letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 28px;
+  text-align: center;
+}
+.hero-name {
+  font-family: var(--sans);
+  font-size: clamp(48px, 11vw, 116px);
+  line-height: 0.92;
+  font-weight: 900;
+  letter-spacing: -0.045em;
+  text-align: center;
+  color: var(--text);
+  margin-bottom: 24px;
+}
+.hero-name .light { font-weight: 300; color: var(--muted); }
+.hero-tagline {
+  font-size: 14px; color: var(--muted);
+  text-align: center; max-width: 540px; margin: 0 auto 36px;
+  line-height: 1.65; font-weight: 300;
+  padding: 0 12px;
+}
+.hero-status {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  margin-bottom: 32px;
+  font-family: var(--mono); font-size: 11px; color: var(--green);
+}
+.hero-cta-row { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; }
+
+/* Liquid glass button */
+.liquid-btn {
+  position: relative;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 14px 32px;
+  border-radius: 9999px;
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.04);
+  color: var(--text);
+  font-family: var(--sans); font-size: 14px; font-weight: 500;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+  overflow: hidden;
+  box-shadow:
+    inset 1px 1px 1px -0.5px rgba(255,255,255,0.5),
+    inset -1px -1px 1px -0.5px rgba(255,255,255,0.4),
+    inset 0 0 6px 6px rgba(255,255,255,0.06),
+    inset 0 0 2px 2px rgba(255,255,255,0.04),
+    0 4px 24px rgba(0,0,0,0.4);
+}
+.liquid-btn:hover {
+  transform: scale(1.04);
+  background: rgba(255,255,255,0.09);
+  border-color: rgba(255,255,255,0.28);
+}
+.liquid-btn:active { transform: scale(0.98); }
+.liquid-btn-sm {
+  padding: 9px 18px;
+  font-size: 12px;
+  font-family: var(--mono);
+  letter-spacing: 0.04em;
+}
+
+/* Sections */
+section { padding: 80px 0; }
+.section-label {
+  font-family: var(--mono); font-size: 10px; color: var(--dim);
+  letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 32px;
+  display: flex; align-items: center; gap: 14px;
+}
+.section-label::after {
+  content: ''; flex: 1; height: 1px;
+  background: linear-gradient(90deg, var(--frame), transparent);
+}
+
+/* Project cards (framed) */
+.project-card {
+  border: 1px solid var(--frame);
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(6px);
+  margin-bottom: 14px;
+  transition: border-color 0.25s, background 0.25s;
+  cursor: pointer;
+  overflow: hidden;
+}
+.project-card:hover {
+  border-color: var(--frame-hover);
+  background: rgba(0,0,0,0.7);
+}
+.project-card.active {
+  border-color: rgba(255,255,255,0.25);
+  background: rgba(0,0,0,0.7);
+}
+
+.project-header {
+  padding: 24px 28px;
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 18px;
+}
+.project-meta { flex: 1; min-width: 0; }
+.project-number {
+  font-family: var(--mono); font-size: 10px; color: var(--dim);
+  margin-bottom: 9px; letter-spacing: 0.1em; text-transform: uppercase;
+}
+.project-title {
+  font-family: var(--sans); font-size: 22px; font-weight: 700;
+  color: var(--text); margin-bottom: 8px; line-height: 1.15;
+  letter-spacing: -0.025em;
+}
+.project-desc { font-size: 13.5px; color: var(--muted); line-height: 1.55; font-weight: 300; }
+
+.project-status {
+  flex-shrink: 0; display: flex; align-items: center; gap: 6px;
+  font-family: var(--mono); font-size: 10px; padding: 5px 12px;
+  border: 1px solid;
+  white-space: nowrap; text-transform: uppercase; letter-spacing: 0.06em;
+}
+.status-live {
+  color: var(--green); border-color: rgba(34,197,94,0.35);
+  background: rgba(34,197,94,0.06);
+}
+.status-building {
+  color: var(--amber); border-color: rgba(245,158,11,0.35);
+  background: rgba(245,158,11,0.06);
+}
+
+.project-body {
+  display: none; padding: 0 28px 28px;
+  border-top: 1px solid var(--frame);
+}
+.project-body.open { display: block; }
+
+.project-problem {
+  padding: 16px 18px; background: rgba(255,255,255,0.025);
+  border-left: 2px solid var(--text);
+  margin: 22px 0;
+}
+.problem-label {
+  font-family: var(--mono); font-size: 10px; color: var(--text);
+  letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 8px;
+}
+.problem-text { font-size: 13px; color: var(--muted); line-height: 1.65; font-weight: 300; }
+
+.built-list { display: flex; flex-direction: column; gap: 8px; margin: 14px 0; }
+.built-item {
+  display: flex; align-items: flex-start; gap: 12px;
+  font-size: 13.5px; color: var(--text); line-height: 1.55; font-weight: 300;
+}
+.built-item::before {
+  content: '/'; color: var(--dim); font-family: var(--mono);
+  font-size: 12px; margin-top: 2px; flex-shrink: 0;
+}
+
+.tech-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 20px; }
+.tech-chip {
+  font-family: var(--mono); font-size: 11px; padding: 4px 11px;
+  border: 1px solid var(--frame); color: var(--muted);
+  background: rgba(255,255,255,0.02);
+}
+
+.btn-live-wrap { margin-top: 20px; }
+
+.log-entries { margin-top: 22px; padding-top: 20px; border-top: 1px solid var(--frame); }
+.log-entry {
+  display: flex; gap: 16px; padding: 11px 0;
+  border-bottom: 1px solid var(--frame); font-size: 12.5px;
+}
+.log-entry:last-child { border-bottom: none; }
+.log-date { font-family: var(--mono); color: var(--dim); white-space: nowrap; min-width: 78px; }
+.log-text { color: var(--text); line-height: 1.5; flex: 1; font-weight: 300; }
+.log-tag {
+  font-family: var(--mono); font-size: 10px; padding: 2px 9px;
+  border: 1px solid var(--frame); color: var(--muted);
+  white-space: nowrap; align-self: flex-start; margin-top: 1px;
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+
+/* About */
+.about-text {
+  font-size: 15px; color: var(--text); line-height: 1.85;
+  margin-bottom: 22px; font-weight: 300; max-width: 640px;
+}
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 32px; }
+.about-card {
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(6px);
+  border: 1px solid var(--frame);
+  padding: 18px 20px;
+  transition: border-color 0.15s;
+}
+.about-card:hover { border-color: var(--frame-hover); }
+.about-card-label {
+  font-family: var(--mono); font-size: 10px; color: var(--dim);
+  letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 10px;
+}
+.about-card-value { font-size: 13.5px; color: var(--text); line-height: 1.55; font-weight: 300; }
+
+/* Contact */
+.contact-links { display: flex; flex-direction: column; gap: 10px; }
+.contact-link {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 22px; border: 1px solid var(--frame);
+  text-decoration: none; color: var(--text);
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(6px);
+  transition: border-color 0.2s, background 0.2s;
+  font-size: 14px;
+}
+.contact-link:hover {
+  border-color: var(--frame-hover);
+  background: rgba(0,0,0,0.75);
+}
+.contact-link-label { font-family: var(--sans); font-weight: 500; font-size: 14px; }
+.contact-link-meta { font-size: 12px; color: var(--muted); font-family: var(--mono); }
+
+footer {
+  padding: 40px 0; text-align: center;
+  font-family: var(--mono); font-size: 11px; color: var(--dim);
+  border-top: 1px solid var(--frame);
+}
+
+@media (max-width: 600px) {
+  .about-grid { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+  .frame-inner { padding: 36px 18px 32px; }
+  .hero-name { font-size: 56px; }
+  .project-header { padding: 20px 18px; }
+  .project-body { padding: 0 18px 22px; }
+  #shader-canvas { opacity: 0.5; }
+}
+</style>
+</head>
+<body>
+
+<canvas id="shader-canvas"></canvas>
+
+<nav>
+  <div class="inner">
+    <a class="nav-logo" href="#">PEDRO<span>.DEV</span></a>
+    <div class="nav-links">
+      <a href="#projects">Work</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="nav-status">
+      <span class="status-dot-wrap"><span class="status-dot-ping"></span><span class="status-dot"></span></span>
+      AVAILABLE
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="hero-wrap">
+    <div class="frame-outer">
+      <div class="frame-inner">
+        <div class="hero-eyebrow">Penn State · ETI · Puerto Rico</div>
+        <h1 class="hero-name">Pedro.<br><span class="light">I show up where</span><br>the spreadsheets end.</h1>
+        <p class="hero-tagline">I ship operational systems and web apps for real businesses, turning manual phone-call workflows into software that runs itself. I focus on tools that fit how people actually work.</p>
+        <div class="hero-status">
+          <span class="status-dot-wrap"><span class="status-dot-ping"></span><span class="status-dot"></span></span>
+          OPEN TO INTERNSHIPS &amp; FULL-TIME ROLES
+        </div>
+        <div class="hero-cta-row">
+          <a class="liquid-btn" href="#projects">View work</a>
+          <a class="liquid-btn" href="#contact" style="background:transparent;border-color:rgba(255,255,255,0.1)">Get in touch</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <section id="projects">
+    <div class="section-label">Selected Work</div>
+
+    <!-- 01 HOD -->
+    <div class="project-card active" onclick="toggle('hod')">
+      <div class="project-header">
+        <div class="project-meta">
+          <div class="project-number">01 / Construction / Puerto Rico</div>
+          <div class="project-title">HOD Investment / Operations Platform</div>
+          <div class="project-desc">Full internal ops platform for a construction company that ran on phone calls and paper, built from scratch in React and Firebase.</div>
+        </div>
+        <div class="project-status status-building"><span class="status-dot-wrap" style="width:8px;height:8px"><span class="status-dot-ping" style="background:var(--amber)"></span><span class="status-dot" style="background:var(--amber);width:5px;height:5px"></span></span>In progress</div>
+      </div>
+      <div class="project-body open" id="body-hod">
+        <div class="project-problem">
+          <div class="problem-label">The problem</div>
+          <div class="problem-text">HOD ran entirely on phone calls and manual counting. No attendance tracking, no record of material requests, no visibility across job sites, no audit trail. The owner had no way to know what was happening on any project without calling someone.</div>
+        </div>
+        <div class="built-list">
+          <div class="built-item">Clock in and out app with GPS, replacing all manual timekeeping across job sites</div>
+          <div class="built-item">Owner morning briefing screen that surfaces what needs attention daily, no training required</div>
+          <div class="built-item">Materials request flow where the foreman submits via app and the supervisor gets a WhatsApp notification instantly</div>
+          <div class="built-item">Bilingual system with Spanish default (es-PR) and English toggle for all user-facing content</div>
+          <div class="built-item">Auto-report architecture that delivers a weekly summary to the owner without anyone touching anything</div>
+          <div class="built-item">Full audit trail with every action timestamped and attributed automatically</div>
+        </div>
+        <div class="tech-row">
+          <span class="tech-chip">React 18</span>
+          <span class="tech-chip">Firebase</span>
+          <span class="tech-chip">Cloud Functions</span>
+          <span class="tech-chip">Twilio</span>
+          <span class="tech-chip">Vercel</span>
+          <span class="tech-chip">i18n</span>
+        </div>
+        <div class="log-entries">
+          <div class="section-label" style="margin:0 0 14px;font-size:10px">Build log</div>
+          <div class="log-entry"><div class="log-date">Mar 2026</div><div class="log-text">App shell with morning briefing, project board, bilingual i18n, and Firebase schema</div><div class="log-tag">shipped</div></div>
+          <div class="log-entry"><div class="log-date">Mar 2026</div><div class="log-text">Materials request flow: foreman form, supervisor view, WhatsApp notification via Twilio</div><div class="log-tag">shipped</div></div>
+          <div class="log-entry"><div class="log-date">Next</div><div class="log-text">Weekly auto-report Cloud Function: Monday 7am summary to owner, zero manual trigger</div><div class="log-tag">in progress</div></div>
+          <div class="log-entry"><div class="log-date">Next</div><div class="log-text">Payroll summary, daily site report, photo log, permit tracker</div><div class="log-tag">planned</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02 Scent Layer -->
+    <div class="project-card" onclick="toggle('scent')">
+      <div class="project-header">
+        <div class="project-meta">
+          <div class="project-number">02 / Consumer / Marketplace</div>
+          <div class="project-title">Scent Layer / Luxury Fragrance Discovery</div>
+          <div class="project-desc">Full-stack platform for curated niche and designer fragrances. Browse, blend with AI analysis, find similar scents, and order authentic 2ml to 30ml decants.</div>
+        </div>
+        <div class="project-status status-building"><span class="status-dot-wrap" style="width:8px;height:8px"><span class="status-dot-ping" style="background:var(--amber)"></span><span class="status-dot" style="background:var(--amber);width:5px;height:5px"></span></span>In progress</div>
+      </div>
+      <div class="project-body" id="body-scent">
+        <div class="project-problem">
+          <div class="problem-label">The problem</div>
+          <div class="problem-text">Fragrance buyers want to try niche and designer scents without committing $200 to $500 to a full bottle, and no good tool exists for layering or finding scents similar to ones they love. Scent Layer combines curated discovery, AI blend analysis, and decant ordering into one platform.</div>
+        </div>
+        <div class="built-list">
+          <div class="built-item">AI blend analyzer that explains how user-selected fragrances will layer</div>
+          <div class="built-item">Similar-scents finder surfacing alternatives across the curated catalog</div>
+          <div class="built-item">Personalization quiz feeding curated recommendations</div>
+          <div class="built-item">Decant ordering (2ml, 5ml, 10ml, 30ml) with full-bottle sourcing as a secondary path</div>
+          <div class="built-item">Auth with JWT and bcrypt, wishlist, sample orders, and sourcing requests</div>
+          <div class="built-item">All AI runs server-side, so the API key never touches the browser</div>
+        </div>
+        <div class="tech-row">
+          <span class="tech-chip">React 18</span>
+          <span class="tech-chip">Vite</span>
+          <span class="tech-chip">Express</span>
+          <span class="tech-chip">Prisma</span>
+          <span class="tech-chip">PostgreSQL</span>
+          <span class="tech-chip">Claude API</span>
+          <span class="tech-chip">Resend</span>
+          <span class="tech-chip">Vercel + Railway</span>
+        </div>
+        <div class="btn-live-wrap"><a class="liquid-btn liquid-btn-sm" href="https://scent-layer.vercel.app/" target="_blank" rel="noopener">View live build →</a></div>
+      </div>
+    </div>
+
+    <!-- 03 Zelvra -->
+    <div class="project-card" onclick="toggle('zelvra')">
+      <div class="project-header">
+        <div class="project-meta">
+          <div class="project-number">03 / OSINT / Intelligence</div>
+          <div class="project-title">Zelvra / OSINT Radar</div>
+          <div class="project-desc">Watch-what-matters intel platform. Users input a target company and an intent (interview prep, stock research, news monitoring), and the radar fetches and filters relevant signals.</div>
+        </div>
+        <div class="project-status status-building"><span class="status-dot-wrap" style="width:8px;height:8px"><span class="status-dot-ping" style="background:var(--amber)"></span><span class="status-dot" style="background:var(--amber);width:5px;height:5px"></span></span>In progress</div>
+      </div>
+      <div class="project-body" id="body-zelvra">
+        <div class="project-problem">
+          <div class="problem-label">The problem</div>
+          <div class="problem-text">Researching a company for an interview, an investment, or competitive analysis means hunting across news sites, filings, social media, and press releases. Zelvra is an OSINT radar that lets users name a target and an intent, then aggregates and filters signals from across the web into a usable view.</div>
+        </div>
+        <div class="built-list">
+          <div class="built-item">Intent-aware query system with interview prep, stock research, and news monitoring as separate modes</div>
+          <div class="built-item">Multi-source ingestion pipeline pulling from news, filings, and other public signals</div>
+          <div class="built-item">Python scraper microservice feeding the main app</div>
+          <div class="built-item">Supabase backing the data layer with server-side ingestion endpoints</div>
+          <div class="built-item">Claude API processing raw signals into filtered, intent-relevant summaries</div>
+        </div>
+        <div class="tech-row">
+          <span class="tech-chip">Next.js 16</span>
+          <span class="tech-chip">TypeScript</span>
+          <span class="tech-chip">Tailwind v4</span>
+          <span class="tech-chip">Supabase</span>
+          <span class="tech-chip">Claude API</span>
+          <span class="tech-chip">Python</span>
+        </div>
+        <div class="btn-live-wrap"><a class="liquid-btn liquid-btn-sm" href="https://zelvra-assets.vercel.app/" target="_blank" rel="noopener">View live build →</a></div>
+      </div>
+    </div>
+
+    <!-- 04 Dwello -->
+    <div class="project-card" onclick="toggle('dwello')">
+      <div class="project-header">
+        <div class="project-meta">
+          <div class="project-number">04 / PropTech</div>
+          <div class="project-title">Dwello / Property Management Platform</div>
+          <div class="project-desc">Full property management web app consolidating tenant communication, maintenance, lease management, and portfolio financial analytics for landlords.</div>
+        </div>
+        <div class="project-status status-building"><span class="status-dot-wrap" style="width:8px;height:8px"><span class="status-dot-ping" style="background:var(--amber)"></span><span class="status-dot" style="background:var(--amber);width:5px;height:5px"></span></span>In progress</div>
+      </div>
+      <div class="project-body" id="body-dwello">
+        <div class="project-problem">
+          <div class="problem-label">The problem</div>
+          <div class="problem-text">Mid-size landlords juggle tenant communication, maintenance requests, lease tracking, payments, and portfolio finance across disconnected tools: spreadsheets, group chats, sticky notes. Dwello consolidates all of it into one platform built for non-technical property owners.</div>
+        </div>
+        <div class="built-list">
+          <div class="built-item">Tenant communication portal that centralizes messaging and replaces scattered group chats</div>
+          <div class="built-item">Maintenance request tracking where tenants submit and landlords triage and resolve</div>
+          <div class="built-item">Lease and payment status dashboard with at-a-glance visibility across all units</div>
+          <div class="built-item">Rent tracking and expense management with cash-flow and ROI calculations per property and per portfolio</div>
+          <div class="built-item">AI assistants for portfolio analysis and optimization recommendations</div>
+          <div class="built-item">AI-assisted lease summaries that surface key dates and renewal flags automatically</div>
+        </div>
+        <div class="tech-row">
+          <span class="tech-chip">React</span>
+          <span class="tech-chip">Firebase</span>
+          <span class="tech-chip">Vite</span>
+          <span class="tech-chip">Claude API</span>
+          <span class="tech-chip">Rork</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 05 Tradeucate -->
+    <div class="project-card" onclick="toggle('tradeucate')">
+      <div class="project-header">
+        <div class="project-meta">
+          <div class="project-number">05 / EdTech / FinTech</div>
+          <div class="project-title">Tradeucate / Trading &amp; Markets Education</div>
+          <div class="project-desc">Learning platform for day trading, stock markets, finance, and real estate, with two AI agents that analyze trades and help users process losses.</div>
+        </div>
+        <div class="project-status status-building"><span class="status-dot-wrap" style="width:8px;height:8px"><span class="status-dot-ping" style="background:var(--amber)"></span><span class="status-dot" style="background:var(--amber);width:5px;height:5px"></span></span>In progress</div>
+      </div>
+      <div class="project-body" id="body-tradeucate">
+        <div class="project-problem">
+          <div class="problem-label">The problem</div>
+          <div class="problem-text">Day trading and market education is scattered across YouTube, Discord, paid courses, and broker docs. Most new traders learn by losing money. Tradeucate gives structured paths across day trading, stocks, finance, and real estate, with AI built in to help users analyze their own decisions and stay grounded after losses.</div>
+        </div>
+        <div class="built-list">
+          <div class="built-item">Structured learning paths across day trading, stocks, finance, and real estate</div>
+          <div class="built-item">Stock analyst AI agent that analyzes any stock, commodity, or asset the user asks about</div>
+          <div class="built-item">Trading psychology AI agent that supports users after losing trades, working like a financial therapist for risk-management thinking</div>
+          <div class="built-item">Progress tracking that shows users exactly where they are in each path</div>
+          <div class="built-item">Mobile-first design built for learning on a phone between trades</div>
+        </div>
+        <div class="tech-row">
+          <span class="tech-chip">React</span>
+          <span class="tech-chip">Vite</span>
+          <span class="tech-chip">Firebase</span>
+          <span class="tech-chip">Claude API</span>
+          <span class="tech-chip">Replit</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 06 HOD Internship -->
+    <div class="project-card" onclick="toggle('internship')">
+      <div class="project-header">
+        <div class="project-meta">
+          <div class="project-number">06 / Internship / HOD Investment</div>
+          <div class="project-title">Power Apps / Construction Operations</div>
+          <div class="project-desc">Built and deployed internal tools during full-time summer work at HOD Investment, still in active use.</div>
+        </div>
+        <div class="project-status status-live"><span class="status-dot-wrap" style="width:8px;height:8px"><span class="status-dot-ping"></span><span class="status-dot" style="width:5px;height:5px"></span></span>Live</div>
+      </div>
+      <div class="project-body" id="body-internship">
+        <div class="project-problem">
+          <div class="problem-label">The context</div>
+          <div class="problem-text">During the summer at HOD Investment, designed and deployed Microsoft Power Platform tools that gave the operations team their first experience with digital tracking and reporting. These systems remain in active use and formed the foundation for the current full rebuild.</div>
+        </div>
+        <div class="built-list">
+          <div class="built-item">Power Apps clock-in and clock-out tool now used by 50+ field employees, replacing paper timesheets company-wide</div>
+          <div class="built-item">Payroll processing cut from 2+ days to instant by routing field-collected timestamps directly into Power BI and downstream payroll workflows</div>
+          <div class="built-item">Power BI dashboards tracking hours worked, crew locations, and tool adoption rates across concurrent projects</div>
+          <div class="built-item">Adopted on day one through hands-on training and change management with field crews and supervisors</div>
+          <div class="built-item">Still in production: systems built that summer are the operational backbone today</div>
+        </div>
+        <div class="tech-row">
+          <span class="tech-chip">Power Apps</span>
+          <span class="tech-chip">Power BI</span>
+          <span class="tech-chip">Microsoft 365</span>
+          <span class="tech-chip">SharePoint</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 07 e-STEPS -->
+    <div class="project-card" onclick="toggle('esteps')">
+      <div class="project-header">
+        <div class="project-meta">
+          <div class="project-number">07 / Internship / e-STEPS</div>
+          <div class="project-title">e-STEPS / Database Optimization &amp; Analytics Dashboard</div>
+          <div class="project-desc">SQL optimization plus a full real-time analytics dashboard for company leadership.</div>
+        </div>
+        <div class="project-status status-live"><span class="status-dot-wrap" style="width:8px;height:8px"><span class="status-dot-ping"></span><span class="status-dot" style="width:5px;height:5px"></span></span>Live</div>
+      </div>
+      <div class="project-body" id="body-esteps">
+        <div class="project-problem">
+          <div class="problem-label">The context</div>
+          <div class="problem-text">At e-STEPS, owned two threads of work. First, identified slow queries in the production database and rewrote them with proper indexing, optimized joins, and date-scoped filtering, cutting report runtimes roughly 40%. Second, designed and shipped a real-time analytics dashboard for leadership that became the company's single source of truth, replacing week-old static reports.</div>
+        </div>
+        <div class="built-list">
+          <div class="built-item">~40% faster production reporting through SQL refactoring with indexes, optimized joins, and date-scoped filters</div>
+          <div class="built-item">Real-time analytics dashboard surfacing company performance, employee performance, revenues, and lead pipeline status</div>
+          <div class="built-item">Dashboard replaced week-old static reports as the live single source of truth for leadership decisions</div>
+          <div class="built-item">Dynamic JavaScript validation for dependent input fields and conditional dropdowns, eliminating malformed data at point of entry</div>
+          <div class="built-item">Owned the end-to-end pipeline from frontend capture through SQL execution to dashboard rendering</div>
+        </div>
+        <div class="tech-row">
+          <span class="tech-chip">SQL</span>
+          <span class="tech-chip">JavaScript</span>
+          <span class="tech-chip">Database Design</span>
+          <span class="tech-chip">Dashboard Development</span>
+          <span class="tech-chip">REST APIs</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 08 Crowd Meter -->
+    <div class="project-card" onclick="toggle('crowdmeter')">
+      <div class="project-header">
+        <div class="project-meta">
+          <div class="project-number">08 / Academic / Penn State</div>
+          <div class="project-title">Crowd Meter / Campus Occupancy System</div>
+          <div class="project-desc">Class capstone project: designed and built a full occupancy monitoring system ready for real-world deployment.</div>
+        </div>
+        <div class="project-status status-live"><span class="status-dot-wrap" style="width:8px;height:8px"><span class="status-dot-ping"></span><span class="status-dot" style="width:5px;height:5px"></span></span>Completed</div>
+      </div>
+      <div class="project-body" id="body-crowdmeter">
+        <div class="project-problem">
+          <div class="problem-label">The context</div>
+          <div class="problem-text">Built as a group capstone for ETI 420 at Penn State. The goal was to go beyond a prototype: the team designed and delivered everything needed to actually deploy the system in a real campus environment, not just a slide deck or mockup.</div>
+        </div>
+        <div class="built-list">
+          <div class="built-item">Real-time occupancy monitoring across campus locations that tracks how full spaces are and surfaces that data to users</div>
+          <div class="built-item">Served as developer and integration specialist, responsible for core features and connecting the system's components end to end</div>
+          <div class="built-item">Delivered full UML documentation including use case diagrams, class diagrams, and system architecture ready for handoff or deployment</div>
+          <div class="built-item">Designed with real deployment in mind: data flows, user roles, and infrastructure scoped for actual production use, not just academic demonstration</div>
+        </div>
+        <div class="tech-row">
+          <span class="tech-chip">UML</span>
+          <span class="tech-chip">System Design</span>
+          <span class="tech-chip">Integration</span>
+          <span class="tech-chip">ETI 420</span>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <section id="about">
+    <div class="section-label">About</div>
+    <p class="about-text">I'm an incoming senior studying Enterprise Technology Integration with a Business Fundamentals Certificate at Penn State, building production software for real businesses while enrolled. My work sits at the intersection of operations, product, and engineering. I figure out what's broken, then build the thing that fixes it.</p>
+    <p class="about-text">I've shipped Power Apps and Power BI systems still used daily at a construction company, and I'm currently rebuilding that same company's entire ops stack from scratch in React and Firebase. I care about tools that fit how people actually work, not tools that force people to change how they work.</p>
+    <p class="about-text" style="margin-bottom:32px">
+      <span style="font-family:var(--mono);font-size:10px;color:var(--dim);letter-spacing:0.14em;text-transform:uppercase;display:block;margin-bottom:10px">Looking for</span>
+      Roles where the work is hands-on and the impact is real. I'm pursuing a Top Secret security clearance and am interested in positions in technology, intelligence, or operations where I can build things that matter, not just maintain them.
+    </p>
+    <div class="about-grid">
+      <div class="about-card">
+        <div class="about-card-label">Education</div>
+        <div class="about-card-value">Enterprise Technology Integration<br>Business Fundamentals Certificate<br>Penn State / Incoming Senior</div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-label">Experience</div>
+        <div class="about-card-value">HOD Investment / e-STEPS<br>Internships + independent builds</div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-label">Currently building</div>
+        <div class="about-card-value">HOD ops / Scent Layer / Zelvra / Tradeucate</div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-label">Based in</div>
+        <div class="about-card-value">Puerto Rico</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="section-label">Contact</div>
+    <div class="contact-links">
+      <a class="contact-link" href="mailto:pedrojuancardona@gmail.com">
+        <div class="contact-link-label">Email</div>
+        <div class="contact-link-meta">pedrojuancardona@gmail.com →</div>
+      </a>
+      <a class="contact-link" href="https://github.com/PedroCardonaa" target="_blank">
+        <div class="contact-link-label">GitHub</div>
+        <div class="contact-link-meta">github.com/PedroCardonaa →</div>
+      </a>
+      <a class="contact-link" href="https://www.linkedin.com/in/pedro-cardona-973149291" target="_blank">
+        <div class="contact-link-label">LinkedIn</div>
+        <div class="contact-link-meta">linkedin.com/in/pedro-cardona-973149291 →</div>
+      </a>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div class="container">
+    Built by Pedro Cardona / <span id="year"></span>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+function toggle(id) {
+  const body = document.getElementById('body-' + id);
+  const card = body.closest('.project-card');
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  card.classList.toggle('active', !isOpen);
+}
+
+// WebGL shader background
+(function() {
+  const canvas = document.getElementById('shader-canvas');
+  if (!canvas || typeof THREE === 'undefined') return;
+
+  const vertexShader = `
+    attribute vec3 position;
+    void main() {
+      gl_Position = vec4(position, 1.0);
+    }
+  `;
+
+  const fragmentShader = `
+    precision highp float;
+    uniform vec2 resolution;
+    uniform float time;
+    uniform float xScale;
+    uniform float yScale;
+    uniform float distortion;
+
+    void main() {
+      vec2 p = (gl_FragCoord.xy * 2.0 - resolution) / min(resolution.x, resolution.y);
+      float d = length(p) * distortion;
+      float rx = p.x * (1.0 + d);
+      float gx = p.x;
+      float bx = p.x * (1.0 - d);
+      float r = 0.05 / abs(p.y + sin((rx + time) * xScale) * yScale);
+      float g = 0.05 / abs(p.y + sin((gx + time) * xScale) * yScale);
+      float b = 0.05 / abs(p.y + sin((bx + time) * xScale) * yScale);
+      gl_FragColor = vec4(r, g, b, 1.0);
+    }
+  `;
+
+  const scene = new THREE.Scene();
+  const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: false });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setClearColor(new THREE.Color(0x000000));
+
+  const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, -1);
+
+  const uniforms = {
+    resolution: { value: [window.innerWidth, window.innerHeight] },
+    time: { value: 0.0 },
+    xScale: { value: 1.0 },
+    yScale: { value: 0.5 },
+    distortion: { value: 0.05 }
+  };
+
+  const positions = new Float32Array([
+    -1,-1,0,  1,-1,0,  -1,1,0,
+     1,-1,0,  -1,1,0,   1,1,0
+  ]);
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+  const material = new THREE.RawShaderMaterial({
+    vertexShader: vertexShader,
+    fragmentShader: fragmentShader,
+    uniforms: uniforms,
+    side: THREE.DoubleSide
+  });
+
+  const mesh = new THREE.Mesh(geometry, material);
+  scene.add(mesh);
+
+  function handleResize() {
+    const w = window.innerWidth, h = window.innerHeight;
+    renderer.setSize(w, h, false);
+    uniforms.resolution.value = [w, h];
+  }
+  handleResize();
+
+  let running = true;
+  document.addEventListener('visibilitychange', function() {
+    running = !document.hidden;
+    if (running) animate();
+  });
+
+  function animate() {
+    if (!running) return;
+    uniforms.time.value += 0.01;
+    renderer.render(scene, camera);
+    requestAnimationFrame(animate);
+  }
+  animate();
+
+  window.addEventListener('resize', handleResize);
+})();
+</script>
+
+</body>
+</html>
