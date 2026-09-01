@@ -376,17 +376,47 @@ footer {
   <section id="projects">
     <div class="section-label">Selected Work</div>
 
-    <!-- 01 HOD -->
-    <div class="project-card active" onclick="toggle('hod')">
+    <!-- 01 IntegraPR -->
+    <div class="project-card active" onclick="toggle('integrapr')">
       <div class="project-header">
         <div class="project-meta">
-          <div class="project-number">01 / Construction / Puerto Rico</div>
+          <div class="project-number">01 / GovTech / Puerto Rico</div>
+          <div class="project-title">IntegraPR / Government ERP Analytics Dashboard</div>
+          <div class="project-desc">Live dashboard built for the Sub-Secretary of Government of Puerto Rico (AOMPR) for analysis and reporting on the Integra ERP system.</div>
+        </div>
+        <div class="project-status status-live"><span class="status-dot-wrap" style="width:8px;height:8px"><span class="status-dot-ping"></span><span class="status-dot" style="width:5px;height:5px"></span></span>Live</div>
+      </div>
+      <div class="project-body open" id="body-integrapr">
+        <div class="project-problem">
+          <div class="problem-label">The context</div>
+          <div class="problem-text">The Sub-Secretary of Government of Puerto Rico needed visibility into data locked inside the Integra ERP system, without leadership having to dig through the ERP itself to track agency operations. Built IntegraPR to pull that data out and present it as clear, actionable reporting.</div>
+        </div>
+        <div class="built-list">
+          <div class="built-item">Live dashboard consolidating Integra ERP data into a single reporting view for government leadership</div>
+          <div class="built-item">Analysis and visualization layer surfacing agency operations and metrics without direct ERP access</div>
+          <div class="built-item">Deployed and in active use for the Sub-Secretary's office</div>
+        </div>
+        <div class="tech-row">
+          <span class="tech-chip">Dashboard Development</span>
+          <span class="tech-chip">Data Analysis</span>
+          <span class="tech-chip">ERP Integration</span>
+          <span class="tech-chip">GovTech</span>
+        </div>
+        <div class="btn-live-wrap"><a class="liquid-btn liquid-btn-sm" href="https://integrapr.aompr.com/" target="_blank" rel="noopener">View live build →</a></div>
+      </div>
+    </div>
+
+    <!-- 02 HOD -->
+    <div class="project-card" onclick="toggle('hod')">
+      <div class="project-header">
+        <div class="project-meta">
+          <div class="project-number">02 / Construction / Puerto Rico</div>
           <div class="project-title">HOD Investment / Operations Platform</div>
           <div class="project-desc">Full internal ops platform for a construction company that ran on phone calls and paper, built from scratch in React and Firebase.</div>
         </div>
         <div class="project-status status-building"><span class="status-dot-wrap" style="width:8px;height:8px"><span class="status-dot-ping" style="background:var(--amber)"></span><span class="status-dot" style="background:var(--amber);width:5px;height:5px"></span></span>In progress</div>
       </div>
-      <div class="project-body open" id="body-hod">
+      <div class="project-body" id="body-hod">
         <div class="project-problem">
           <div class="problem-label">The problem</div>
           <div class="problem-text">HOD ran entirely on phone calls and manual counting. No attendance tracking, no record of material requests, no visibility across job sites, no audit trail. The owner had no way to know what was happening on any project without calling someone.</div>
@@ -417,11 +447,11 @@ footer {
       </div>
     </div>
 
-    <!-- 02 Scent Layer -->
+    <!-- 03 Scent Layer -->
     <div class="project-card" onclick="toggle('scent')">
       <div class="project-header">
         <div class="project-meta">
-          <div class="project-number">02 / Consumer / Marketplace</div>
+          <div class="project-number">03 / Consumer / Marketplace</div>
           <div class="project-title">Scent Layer / Luxury Fragrance Discovery</div>
           <div class="project-desc">Full-stack platform for curated niche and designer fragrances. Browse, blend with AI analysis, find similar scents, and order authentic 2ml to 30ml decants.</div>
         </div>
@@ -454,11 +484,11 @@ footer {
       </div>
     </div>
 
-    <!-- 03 Zelvra -->
+    <!-- 04 Zelvra -->
     <div class="project-card" onclick="toggle('zelvra')">
       <div class="project-header">
         <div class="project-meta">
-          <div class="project-number">03 / OSINT / Intelligence</div>
+          <div class="project-number">04 / OSINT / Intelligence</div>
           <div class="project-title">Zelvra / OSINT Radar</div>
           <div class="project-desc">Watch-what-matters intel platform. Users input a target company and an intent (interview prep, stock research, news monitoring), and the radar fetches and filters relevant signals.</div>
         </div>
@@ -488,11 +518,11 @@ footer {
       </div>
     </div>
 
-    <!-- 04 Dwello -->
+    <!-- 05 Dwello -->
     <div class="project-card" onclick="toggle('dwello')">
       <div class="project-header">
         <div class="project-meta">
-          <div class="project-number">04 / PropTech</div>
+          <div class="project-number">05 / PropTech</div>
           <div class="project-title">Dwello / Property Management Platform</div>
           <div class="project-desc">Full property management web app consolidating tenant communication, maintenance, lease management, and portfolio financial analytics for landlords.</div>
         </div>
@@ -521,11 +551,11 @@ footer {
       </div>
     </div>
 
-    <!-- 05 Tradeucate -->
+    <!-- 06 Tradeucate -->
     <div class="project-card" onclick="toggle('tradeucate')">
       <div class="project-header">
         <div class="project-meta">
-          <div class="project-number">05 / EdTech / FinTech</div>
+          <div class="project-number">06 / EdTech / FinTech</div>
           <div class="project-title">Tradeucate / Trading &amp; Markets Education</div>
           <div class="project-desc">Learning platform for day trading, stock markets, finance, and real estate, with two AI agents that analyze trades and help users process losses.</div>
         </div>
@@ -553,11 +583,11 @@ footer {
       </div>
     </div>
 
-    <!-- 06 HOD Internship -->
+    <!-- 07 HOD Internship -->
     <div class="project-card" onclick="toggle('internship')">
       <div class="project-header">
         <div class="project-meta">
-          <div class="project-number">06 / Internship / HOD Investment</div>
+          <div class="project-number">07 / Internship / HOD Investment</div>
           <div class="project-title">Power Apps / Construction Operations</div>
           <div class="project-desc">Built and deployed internal tools during full-time summer work at HOD Investment, still in active use.</div>
         </div>
@@ -584,11 +614,11 @@ footer {
       </div>
     </div>
 
-    <!-- 07 e-STEPS -->
+    <!-- 08 e-STEPS -->
     <div class="project-card" onclick="toggle('esteps')">
       <div class="project-header">
         <div class="project-meta">
-          <div class="project-number">07 / Internship / e-STEPS</div>
+          <div class="project-number">08 / Internship / e-STEPS</div>
           <div class="project-title">e-STEPS / Database Optimization &amp; Analytics Dashboard</div>
           <div class="project-desc">SQL optimization plus a full real-time analytics dashboard for company leadership.</div>
         </div>
@@ -616,11 +646,11 @@ footer {
       </div>
     </div>
 
-    <!-- 08 Crowd Meter -->
+    <!-- 09 Crowd Meter -->
     <div class="project-card" onclick="toggle('crowdmeter')">
       <div class="project-header">
         <div class="project-meta">
-          <div class="project-number">08 / Academic / Penn State</div>
+          <div class="project-number">09 / Academic / Penn State</div>
           <div class="project-title">Crowd Meter / Campus Occupancy System</div>
           <div class="project-desc">Class capstone project: designed and built a full occupancy monitoring system ready for real-world deployment.</div>
         </div>
