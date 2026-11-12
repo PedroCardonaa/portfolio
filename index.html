@@ -100,6 +100,12 @@ nav .inner {
   position: relative;
 }
 
+.hero-photo {
+  display: block; width: 132px; height: 132px;
+  margin: 0 auto 28px; padding: 4px;
+  border: 1px solid var(--frame); border-radius: 50%;
+  object-fit: cover; background: var(--bg);
+}
 .hero-eyebrow {
   font-family: var(--mono); font-size: 11px; color: var(--dim);
   letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 28px;
@@ -279,6 +285,13 @@ section { padding: 80px 0; }
 }
 
 /* About */
+.about-layout { display: flex; gap: 36px; align-items: flex-start; }
+.about-photo {
+  flex: 0 0 200px; width: 200px; height: auto; aspect-ratio: 1 / 1;
+  display: block; padding: 6px;
+  border: 1px solid var(--frame); background: rgba(0,0,0,0.55);
+}
+.about-body { flex: 1; min-width: 0; }
 .about-text {
   font-size: 15px; color: var(--text); line-height: 1.85;
   margin-bottom: 22px; font-weight: 300; max-width: 640px;
@@ -324,6 +337,9 @@ footer {
 
 @media (max-width: 600px) {
   .about-grid { grid-template-columns: 1fr; }
+  .about-layout { flex-direction: column; gap: 24px; }
+  .about-photo { flex-basis: auto; width: 160px; }
+  .hero-photo { width: 104px; height: 104px; margin-bottom: 22px; }
   .nav-links { display: none; }
   .frame-inner { padding: 36px 18px 32px; }
   .hero-name { font-size: 56px; }
@@ -356,6 +372,7 @@ footer {
   <div class="hero-wrap">
     <div class="frame-outer">
       <div class="frame-inner">
+        <img class="hero-photo" src="headshot.jpg" alt="Portrait of Pedro Cardona in a gray suit and pink striped tie" width="800" height="800">
         <div class="hero-eyebrow">Penn State · ETI · Puerto Rico</div>
         <h1 class="hero-name">Pedro.<br><span class="light">I build the systems</span><br>businesses run on.</h1>
         <p class="hero-tagline">I design and ship production software for real organizations, from government agencies to growing businesses, turning manual, phone-call-driven workflows into systems that run themselves. I focus on tools that fit how people actually work.</p>
@@ -680,12 +697,17 @@ footer {
 
   <section id="about">
     <div class="section-label">About</div>
+    <div class="about-layout">
+    <img class="about-photo" src="headshot.jpg" alt="Portrait of Pedro Cardona in a gray suit and pink striped tie" width="800" height="800" loading="lazy">
+    <div class="about-body">
     <p class="about-text">I'm a senior studying Enterprise Technology Integration with a Business Fundamentals Certificate at Penn State, building production software for real businesses while enrolled. My work sits at the intersection of operations, product, and engineering. I figure out what's broken, then build the thing that fixes it.</p>
     <p class="about-text">I've shipped Power Apps and Power BI systems still used daily at a construction company, and I'm currently rebuilding that same company's entire ops stack from scratch in React and Firebase. I care about tools that fit how people actually work, not tools that force people to change how they work.</p>
     <p class="about-text" style="margin-bottom:32px">
       <span style="font-family:var(--mono);font-size:10px;color:var(--dim);letter-spacing:0.14em;text-transform:uppercase;display:block;margin-bottom:10px">Looking for</span>
       Roles where the work is hands-on and the impact is real. I'm pursuing a Top Secret security clearance and am interested in positions in technology, intelligence, or operations where I can build things that matter, not just maintain them.
     </p>
+    </div>
+    </div>
     <div class="about-grid">
       <div class="about-card">
         <div class="about-card-label">Education</div>
