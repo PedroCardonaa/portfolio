@@ -113,8 +113,8 @@ nav .inner {
 }
 .hero-name {
   font-family: var(--sans);
-  font-size: clamp(48px, 11vw, 116px);
-  line-height: 0.92;
+  font-size: clamp(40px, 8vw, 84px);
+  line-height: 0.95;
   font-weight: 900;
   letter-spacing: -0.045em;
   text-align: center;
@@ -310,6 +310,23 @@ section { padding: 80px 0; }
   letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 10px;
 }
 .about-card-value { font-size: 13.5px; color: var(--text); line-height: 1.55; font-weight: 300; }
+.mcm-card {
+  margin-top: 12px; padding: 8px;
+  border: 1px solid var(--frame);
+  background: rgba(0,0,0,0.55); backdrop-filter: blur(6px);
+}
+.mcm-inner {
+  border: 1px solid var(--frame); padding: 28px;
+  display: flex; gap: 28px; align-items: flex-start;
+}
+.mcm-logo { flex: 0 0 96px; width: 96px; height: 96px; display: block; }
+.mcm-body { flex: 1; min-width: 0; }
+.mcm-eyebrow {
+  font-family: var(--mono); font-size: 10px; color: #22d3ee;
+  letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 10px;
+}
+.mcm-title { font-size: 22px; font-weight: 800; letter-spacing: -0.02em; color: var(--text); margin-bottom: 10px; }
+.mcm-desc { font-size: 14px; color: var(--muted); line-height: 1.65; font-weight: 300; max-width: 600px; }
 
 /* Contact */
 .contact-links { display: flex; flex-direction: column; gap: 10px; }
@@ -342,7 +359,9 @@ footer {
   .hero-photo { width: 104px; height: 104px; margin-bottom: 22px; }
   .nav-links { display: none; }
   .frame-inner { padding: 36px 18px 32px; }
-  .hero-name { font-size: 56px; }
+  .hero-name { font-size: clamp(32px, 11vw, 48px); }
+  .mcm-inner { flex-direction: column; gap: 20px; padding: 24px 18px; }
+  .mcm-logo { width: 72px; height: 72px; flex-basis: auto; }
   .project-header { padding: 20px 18px; }
   .project-body { padding: 0 18px 22px; }
   #shader-canvas { opacity: 0.5; }
@@ -724,6 +743,24 @@ footer {
       <div class="about-card">
         <div class="about-card-label">Based in</div>
         <div class="about-card-value">Puerto Rico</div>
+      </div>
+    </div>
+    <div class="mcm-card">
+      <div class="mcm-inner">
+        <img class="mcm-logo" src="mcm-logo.png" alt="MCM Management Group LLC logo" width="480" height="480" loading="lazy">
+        <div class="mcm-body">
+          <div class="mcm-eyebrow">Available for contract work · <span style="white-space:nowrap">1099 / C2C</span></div>
+          <div class="mcm-title">MCM Management Group LLC</div>
+          <p class="mcm-desc">Hiring a contractor instead of a W-2 employee? I take on contract engagements through my LLC, a technology contractor based in Puerto Rico. You get the same builder behind the work above, set up as a business you can contract and invoice directly.</p>
+          <div class="tech-row">
+            <span class="tech-chip">Dashboards &amp; Reporting</span>
+            <span class="tech-chip">Internal Tools</span>
+            <span class="tech-chip">Web Apps</span>
+            <span class="tech-chip">Power Apps / Power BI</span>
+            <span class="tech-chip">SQL &amp; Database Work</span>
+          </div>
+          <div class="btn-live-wrap"><a class="liquid-btn liquid-btn-sm" href="mailto:pedrojuancardona@gmail.com?subject=Contract%20inquiry%20for%20MCM%20Management%20Group">Start a contract inquiry →</a></div>
+        </div>
       </div>
     </div>
   </section>
