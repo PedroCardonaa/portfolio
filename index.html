@@ -106,6 +106,11 @@ nav .inner {
   border: 1px solid var(--frame); border-radius: 50%;
   object-fit: cover; background: var(--bg);
 }
+.hero-fullname {
+  font-family: var(--sans); font-size: 30px; font-weight: 800;
+  letter-spacing: -0.025em; line-height: 1.15;
+  text-align: center; color: var(--text); margin-bottom: 12px;
+}
 .hero-eyebrow {
   font-family: var(--mono); font-size: 11px; color: var(--dim);
   letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 28px;
@@ -232,6 +237,16 @@ section { padding: 80px 0; }
   color: var(--amber); border-color: rgba(245,158,11,0.35);
   background: rgba(245,158,11,0.06);
 }
+.status-done {
+  color: var(--muted); border-color: var(--frame-hover);
+  background: rgba(255,255,255,0.03);
+}
+.status-key {
+  display: flex; flex-wrap: wrap; gap: 8px 22px; margin: -14px 0 24px;
+  font-family: var(--mono); font-size: 11px; color: var(--dim); line-height: 1.5;
+}
+.status-key b { color: var(--muted); font-weight: 500; }
+.key-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 8px; vertical-align: 1px; }
 
 .project-body {
   display: none; padding: 0 28px 28px;
@@ -328,6 +343,27 @@ section { padding: 80px 0; }
 .mcm-title { font-size: 22px; font-weight: 800; letter-spacing: -0.02em; color: var(--text); margin-bottom: 10px; }
 .mcm-desc { font-size: 14px; color: var(--muted); line-height: 1.65; font-weight: 300; max-width: 600px; }
 
+/* Resume */
+.resume-card {
+  padding: 8px; border: 1px solid var(--frame);
+  background: rgba(0,0,0,0.55); backdrop-filter: blur(6px);
+}
+.resume-inner { border: 1px solid var(--frame); padding: 8px 28px 28px; }
+.resume-group { padding-top: 24px; }
+.resume-group + .resume-group { border-top: 1px solid var(--frame); margin-top: 24px; }
+.resume-h {
+  font-family: var(--mono); font-size: 10px; font-weight: 400; color: var(--dim);
+  letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 14px;
+}
+.resume-item + .resume-item { margin-top: 20px; }
+.resume-top { display: flex; justify-content: space-between; align-items: baseline; gap: 6px 16px; flex-wrap: wrap; }
+.resume-title { font-size: 15px; font-weight: 700; color: var(--text); letter-spacing: -0.01em; }
+.resume-date { font-family: var(--mono); font-size: 11px; color: var(--dim); white-space: nowrap; }
+.resume-org { font-size: 13px; color: var(--muted); margin-top: 3px; }
+.resume-text { font-size: 13.5px; color: var(--muted); line-height: 1.65; font-weight: 300; margin-top: 8px; }
+.resume-text strong { color: var(--text); font-weight: 500; }
+.resume-actions { margin-top: 28px; }
+
 /* Contact */
 .contact-links { display: flex; flex-direction: column; gap: 10px; }
 .contact-link {
@@ -353,6 +389,7 @@ footer {
 }
 
 @media (max-width: 600px) {
+  .resume-inner { padding: 4px 18px 22px; }
   .about-grid { grid-template-columns: 1fr; }
   .about-layout { flex-direction: column; gap: 24px; }
   .about-photo { flex-basis: auto; width: 160px; }
@@ -360,6 +397,7 @@ footer {
   .nav-links { display: none; }
   .frame-inner { padding: 36px 18px 32px; }
   .hero-name { font-size: clamp(32px, 11vw, 48px); }
+  .hero-fullname { font-size: 23px; }
   .mcm-inner { flex-direction: column; gap: 20px; padding: 24px 18px; }
   .mcm-logo { width: 72px; height: 72px; flex-basis: auto; }
   .project-header { padding: 20px 18px; }
@@ -378,6 +416,7 @@ footer {
     <div class="nav-links">
       <a href="#projects">Work</a>
       <a href="#about">About</a>
+      <a href="#resume">Résumé</a>
       <a href="#contact">Contact</a>
     </div>
     <div class="nav-status">
@@ -392,8 +431,9 @@ footer {
     <div class="frame-outer">
       <div class="frame-inner">
         <img class="hero-photo" src="headshot.jpg" alt="Portrait of Pedro Cardona in a gray suit and pink striped tie" width="800" height="800">
+        <h1 class="hero-fullname">Pedro J. Cardona Acevedo</h1>
         <div class="hero-eyebrow">Penn State · ETI · Puerto Rico</div>
-        <h1 class="hero-name"><span class="light">I build the systems</span><br>businesses run on.</h1>
+        <p class="hero-name"><span class="light">I build the systems</span><br>businesses run on.</p>
         <p class="hero-tagline">I design and ship production software for real organizations, from government agencies to growing businesses, turning manual, phone-call-driven workflows into systems that run themselves. I focus on tools that fit how people actually work.</p>
         <div class="hero-status">
           <span class="status-dot-wrap"><span class="status-dot-ping"></span><span class="status-dot"></span></span>
@@ -412,6 +452,11 @@ footer {
 <div class="container">
   <section id="projects">
     <div class="section-label">Selected Work</div>
+    <div class="status-key">
+      <span><span class="key-dot" style="background:var(--green)"></span><b>Live</b>: deployed and in real use</span>
+      <span><span class="key-dot" style="background:var(--amber)"></span><b>In progress</b>: actively being built</span>
+      <span><span class="key-dot" style="background:var(--muted)"></span><b>Completed</b>: finished, no longer in active development</span>
+    </div>
 
     <!-- 01 IntegraPR -->
     <div class="project-card active" onclick="toggle('integrapr')">
@@ -691,7 +736,7 @@ footer {
           <div class="project-title">Crowd Meter / Campus Occupancy System</div>
           <div class="project-desc">Class capstone project: designed and built a full occupancy monitoring system ready for real-world deployment.</div>
         </div>
-        <div class="project-status status-live"><span class="status-dot-wrap" style="width:8px;height:8px"><span class="status-dot-ping"></span><span class="status-dot" style="width:5px;height:5px"></span></span>Completed</div>
+        <div class="project-status status-done"><span class="status-dot" style="background:var(--muted);width:5px;height:5px"></span>Completed</div>
       </div>
       <div class="project-body" id="body-crowdmeter">
         <div class="project-problem">
@@ -720,7 +765,7 @@ footer {
     <div class="about-layout">
     <img class="about-photo" src="headshot.jpg" alt="Portrait of Pedro Cardona in a gray suit and pink striped tie" width="800" height="800" loading="lazy">
     <div class="about-body">
-    <p class="about-text">I'm a senior studying Enterprise Technology Integration with a Business Fundamentals Certificate at Penn State, building production software for real businesses while enrolled. My work sits at the intersection of operations, product, and engineering. I figure out what's broken, then build the thing that fixes it.</p>
+    <p class="about-text">I'm a senior studying Enterprise Technology Integration with a Business Fundamentals Certificate at Penn State, building production software for real businesses while enrolled. My work sits at the intersection of operations, product, and engineering. I find what's broken, then build what fixes it.</p>
     <p class="about-text">I've shipped Power Apps and Power BI systems still used daily at a construction company, and I'm currently rebuilding that same company's entire ops stack from scratch in React and Firebase. I care about tools that fit how people actually work, not tools that force people to change how they work.</p>
     <p class="about-text" style="margin-bottom:32px">
       <span style="font-family:var(--mono);font-size:10px;color:var(--dim);letter-spacing:0.14em;text-transform:uppercase;display:block;margin-bottom:10px">Looking for</span>
@@ -735,7 +780,7 @@ footer {
       </div>
       <div class="about-card">
         <div class="about-card-label">Experience</div>
-        <div class="about-card-value">HOD Investment / e-STEPS<br>Internships + independent builds</div>
+        <div class="about-card-value">Alpha Omega Media (current)<br>e-STEPS / HOD Investment internships</div>
       </div>
       <div class="about-card">
         <div class="about-card-label">Currently building</div>
@@ -762,6 +807,106 @@ footer {
           </div>
           <div class="btn-live-wrap"><a class="liquid-btn liquid-btn-sm" href="mailto:pedrojuancardona@gmail.com?subject=Contract%20inquiry%20for%20MCM%20Management%20Group">Start a contract inquiry →</a></div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="resume">
+    <div class="section-label">Résumé</div>
+    <div class="resume-card">
+      <div class="resume-inner">
+      <div class="resume-group">
+        <h2 class="resume-h">Summary</h2>
+        <p class="resume-text">Business and BI analyst on Puerto Rico's government ERP modernization (PeopleSoft to Oracle Fusion Cloud) and the program team's backup cloud and AI engineer. Turns fragmented production data into verified dashboards and decision-ready analysis and builds workflow automations with AI coding agents. Reconciled $3.9B in purchase orders to the cent across eight finance systems. Earlier, the report runtimes cut ~40% at e-STEPS and moved 50+ field crews off paper timesheets at HOD Investment. Bilingual English/Spanish.</p>
+      </div>
+      <div class="resume-group">
+        <h2 class="resume-h">Experience</h2>
+        <div class="resume-item">
+        <div class="resume-top"><span class="resume-title">Business &amp; BI Analyst / Incident Coordinator</span><span class="resume-date">Jul 2026 - Present</span></div>
+        <div class="resume-org">Alpha Omega Media, LLC | Puerto Rico · Hybrid</div>
+        <p class="resume-text">Technology consulting firm leading technical architecture, stabilization, and reporting workstreams for the Government of Puerto Rico's ERP modernization, a PeopleSoft to Oracle Fusion Cloud migration spanning Finance, Supply Chain, and Procurement across dozens of agencies.</p>
+        <div class="built-list">
+          <div class="built-item">Served as the program team's backup cloud and AI engineer; built automation with AI coding agents that pulls Clockify API time data and generates the team's standardized weekly status reports, eliminating a manual weekly reporting step.</div>
+          <div class="built-item">Consolidated 8 production data extracts (~240,000 rows, 40 tabs) from multiple government finance systems into the first unified procure-to-pay analytics view, a 10-view application covering ~8,800 suppliers across 60 agencies.</div>
+          <div class="built-item">Verified every headline figure to the cent against source systems, including $3.9B in purchase orders, $1.89B in pending obligations, $1.2B paid to suppliers, $396.7M in invoices, and $3.04B in purchasing agreements across 113,000+ contracts.</div>
+          <div class="built-item">Mapped the end-to-end procure-to-pay process and identified control and data-quality gaps the government's own reporting had missed: under 0.2% of ~52,800 purchase orders traced to a requisition, an invoice-holds report matching zero of 3,337 supplier IDs, and ~3,000 duplicate supplier IDs in a 376,000-row master file.</div>
+          <div class="built-item">Isolated $3,485,675.41 in open obligations across 184 line items by parsing a legacy purchase-order extract and tracing the fund's owning agency to the fiscal circular that established it, unblocking stalled analysis; separately found that two agencies held 57% of all pending government payment obligations, a concentration used to prioritize cash-flow risk.</div>
+          <div class="built-item">Contributed requirements for the Treasury and Budget Office's cloud financial reporting platform (ETL from Oracle Fusion Cloud into a data warehouse and dashboards), specifying accounts-payable aging, budget-vs-actual, and federal-fund reports, and wrote the bilingual user guide for non-technical finance staff.</div>
+          <div class="built-item">Assisted on delivery engineering for a client without reliable internet: compressed a 24.5MB dataset into a 5.46MB self-contained file with zero external dependencies, helped diagnose a production hang caused by a hidden CDN dependency, and re-verified the fix offline against an automated functional test suite.</div>
+          <div class="built-item">Client-facing contact for the Director of Public Finance; delivered dashboards used by a Sub-Secretary of the Government of Puerto Rico and secured access to four Oracle Fusion Cloud modules (Payables, Procurement, Budgetary Control, General Ledger) by tying each request to a specific business question.</div>
+          <div class="built-item">Audited a $5.3M public Wi-Fi contract across 27 sites in 9 municipalities against manufacturer datasheets, isolating the one genuine contractual downgrade among ~12 vendor equipment substitutions; delivered bilingual, risk-rated audit reports to program leadership.</div>
+        </div>
+        </div>
+        <div class="resume-item">
+        <div class="resume-top"><span class="resume-title">Software Development Intern</span><span class="resume-date">Feb 2025 - Aug 2025</span></div>
+        <div class="resume-org">e-STEPS LLC | Guaynabo, PR</div>
+        <div class="built-list">
+          <div class="built-item">Cut production report runtimes ~40% by refactoring SQL with indexing strategies, optimized join paths, and date-scoped filtering.</div>
+          <div class="built-item">Shipped a real-time analytics dashboard leadership uses for performance, revenue, and pipeline reviews, owning the stack from SQL query layer and REST endpoints through frontend visualization.</div>
+          <div class="built-item">Engineered dynamic JavaScript validation that blocked malformed data at entry, cutting downstream database errors and manual cleanup.</div>
+        </div>
+        </div>
+        <div class="resume-item">
+        <div class="resume-top"><span class="resume-title">Operations Technology Developer</span><span class="resume-date">Jun 2025 - Aug 2025</span></div>
+        <div class="resume-org">HOD Investment LLC | Moca, PR</div>
+        <div class="built-list">
+          <div class="built-item">Co-developed a Microsoft Power Apps timekeeping tool now used by 50+ field employees, replacing paper timesheets company-wide with same-week adoption across job sites through hands-on training and change management.</div>
+          <div class="built-item">Cut payroll processing from 2+ days to instant by routing field timestamps into Power BI dashboards and payroll workflows.</div>
+        </div>
+        </div>
+      </div>
+      <div class="resume-group">
+        <h2 class="resume-h">Education</h2>
+        <div class="resume-top"><span class="resume-title">The Pennsylvania State University</span><span class="resume-date">Aug 2023 - May 2027</span></div>
+        <p class="resume-text"><strong>Bachelor of Science</strong> Enterprise Technology Integration  ·  <strong>GPA: 3.21/4.00</strong></p>
+        <p class="resume-text">Relevant coursework: Advanced Enterprise Integration, Enterprise Information Management and Storage Architecture, Organization of Data, Development and Documentation of Enterprise Web, IT Project Management</p>
+        <p class="resume-text">Business Fundamentals Certificate (in progress)</p>
+        <div class="built-list">
+          <div class="built-item">Dean’s List (multiple semesters)</div>
+        </div>
+      </div>
+      <div class="resume-group">
+        <h2 class="resume-h">Skills</h2>
+        <p class="resume-text"><strong>AI &amp; Automation:</strong> AI coding agents (Claude Code, Claude API), prompt design, AI workflow automation, API integrations, and testing and verification of AI-generated code in Python and JavaScript</p>
+        <p class="resume-text"><strong>Cloud &amp; Enterprise Platforms:</strong> Oracle Fusion Cloud ERP (Payables, Procurement, Budgetary Control, General Ledger), Microsoft Azure Power Platform, Power Apps, AWS, Google Cloud (Firebase), Vercel</p>
+        <p class="resume-text"><strong>Data &amp; BI:</strong> SQL (query optimization, indexing, joins), Power BI, Excel, ETL workflows, data warehouse reporting requirements, dashboard development, large-scale data reconciliation</p>
+        <p class="resume-text"><strong>Development:</strong> JavaScript, Java, React, Vite, Node.js, HTML/CSS, REST APIs, Git/GitHub</p>
+        <p class="resume-text"><strong>Consulting &amp; Delivery:</strong> Current-state process mapping, gap analysis, requirements gathering, testing, change management, user training, executive stakeholder communication, Agile, bilingual English/Spanish documentation</p>
+      </div>
+      <div class="resume-group">
+        <h2 class="resume-h">Featured Projects</h2>
+        <div class="resume-item">
+        <div class="resume-top"><span class="resume-title">AI-Built Automation Tools</span><span class="resume-date">Ongoing</span></div>
+        <p class="resume-text">Directed and tested tools built with AI coding agents for real users: a contract-generation automation for a billboard permitting practice that replaced one-by-one manual drafting, and a Quizlet-style study app used by medical students.</p>
+        </div>
+        <div class="resume-item">
+        <div class="resume-top"><span class="resume-title">Crowd Meter</span><span class="resume-date">Feb 2026 - Apr 2026</span></div>
+        <p class="resume-text">Team campus occupancy app; led the multi-layer class architecture spanning facility types, sensor inputs, user roles, prediction models, and a real-time dashboard.</p>
+        </div>
+        <div class="resume-item">
+        <div class="resume-top"><span class="resume-title">Dwello</span><span class="resume-date">Nov 2025 - Dec 2025</span></div>
+        <p class="resume-text">Solo-built React/Firebase property management platform automating rent, expense, cashflow, and ROI tracking, with AI assistants for portfolio analysis.</p>
+        </div>
+        <div class="resume-item">
+        <div class="resume-top"><span class="resume-title">Tradeucate</span><span class="resume-date">Oct 2025 - Jan 2026</span></div>
+        <p class="resume-text">Solo-built React/Firebase learning platform for trading, finance, and real estate, with real-time market data APIs and AI strategy bots that analyze user decisions.</p>
+        </div>
+      </div>
+      <div class="resume-group">
+        <h2 class="resume-h">Certifications in Progress</h2>
+        <div class="built-list">
+          <div class="built-item">CompTIA Security+ (SY0-701)</div>
+          <div class="built-item">ITIL Foundation</div>
+        </div>
+      </div>
+      <div class="resume-group">
+        <h2 class="resume-h">LEADERSHIP &amp; SERVICE</h2>
+        <div class="built-list">
+          <div class="built-item">Phi Eta Mu Fraternity, Beta Chapter, active member of a century-old leadership development organization in Puerto Rico.</div>
+          <div class="built-item">Disaster Relief Volunteer, Puerto Rico, contributed materials and food for hurricane and earthquake recovery efforts.</div>
+        </div>
+      </div>
+      <div class="resume-actions"><a class="liquid-btn liquid-btn-sm" href="Pedro-Cardona-Acevedo-Resume.pdf" download>Download PDF version →</a></div>
       </div>
     </div>
   </section>
@@ -879,19 +1024,18 @@ function toggle(id) {
   }
   handleResize();
 
-  let running = true;
-  document.addEventListener('visibilitychange', function() {
-    running = !document.hidden;
-    if (running) animate();
-  });
-
-  function animate() {
-    if (!running) return;
-    uniforms.time.value += 0.01;
+  // One loop only; time advances by real elapsed time so speed is the same at any refresh rate.
+  let rafId = null, last = null;
+  function frame(now) {
+    if (last !== null) uniforms.time.value += Math.min(now - last, 50) * 0.0006;
+    last = now;
     renderer.render(scene, camera);
-    requestAnimationFrame(animate);
+    rafId = requestAnimationFrame(frame);
   }
-  animate();
+  function start() { if (rafId === null) { last = null; rafId = requestAnimationFrame(frame); } }
+  function stop() { if (rafId !== null) { cancelAnimationFrame(rafId); rafId = null; } }
+  document.addEventListener('visibilitychange', function() { document.hidden ? stop() : start(); });
+  start();
 
   window.addEventListener('resize', handleResize);
 })();
