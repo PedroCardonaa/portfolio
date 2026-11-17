@@ -361,6 +361,23 @@ a:focus-visible, .project-header:focus-visible { outline: 2px solid var(--text);
 .mcm-title { font-size: 22px; font-weight: 800; letter-spacing: -0.02em; color: var(--text); margin-bottom: 10px; }
 .mcm-desc { font-size: 14px; color: var(--muted); line-height: 1.65; font-weight: 300; max-width: 600px; }
 
+/* Writing */
+.writing-list { display: flex; flex-direction: column; gap: 12px; }
+.post-card {
+  position: relative; padding: 24px 28px;
+  border: 1px solid var(--frame); background: rgba(0,0,0,0.55); backdrop-filter: blur(6px);
+  transition: border-color 0.2s, background 0.2s;
+}
+.post-card:hover { border-color: var(--frame-hover); background: rgba(0,0,0,0.7); }
+.post-meta { font-family: var(--mono); font-size: 11px; color: var(--dim); letter-spacing: 0.04em; margin-bottom: 10px; }
+.post-card h3 { font-size: 20px; line-height: 1.25; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 8px; }
+.post-card h3 a { color: var(--text); text-decoration: none; }
+.post-card h3 a::after { content: ''; position: absolute; inset: 0; }
+.post-card h3 a:focus-visible { outline: none; }
+.post-card:focus-within { outline: 2px solid var(--text); outline-offset: 2px; }
+.post-sum { font-size: 13.5px; color: var(--muted); line-height: 1.6; font-weight: 300; }
+.post-more { display: inline-block; margin-top: 12px; font-family: var(--mono); font-size: 12px; color: var(--text); }
+
 /* Resume */
 .resume-card {
   padding: 8px; border: 1px solid var(--frame);
@@ -407,6 +424,7 @@ footer {
 }
 
 @media (max-width: 600px) {
+  .post-card { padding: 20px 18px; }
   .resume-inner { padding: 4px 18px 22px; }
   .about-grid { grid-template-columns: 1fr; }
   .about-layout { flex-direction: column; gap: 24px; }
@@ -434,6 +452,7 @@ footer {
     <a class="nav-logo" href="#">Pedro J. Cardona Acevedo</a>
     <div class="nav-links">
       <a href="#projects">Work</a>
+      <a href="#writing">Writing</a>
       <a href="#about">About</a>
       <a href="#resume">Résumé</a>
       <a href="#contact">Contact</a>
@@ -779,6 +798,30 @@ footer {
       </div>
     </div>
 
+  </section>
+
+  <section id="writing">
+    <h2 class="section-label">Writing</h2>
+    <div class="writing-list">
+      <article class="post-card">
+        <div class="post-meta">November 17, 2026 · 4 min read</div>
+        <h3><a href="blog/integra-explained.html">Íntegra, Explained: Why Puerto Rico's New ERP Is Hard and Why It Still Matters</a></h3>
+        <p class="post-sum">In July 2026, Puerto Rico moved more than 60 government agencies onto Íntegra, a single cloud ERP. Why the rollout has been rough, and the signals I would watch next.</p>
+        <span class="post-more" aria-hidden="true">Read article →</span>
+      </article>
+      <article class="post-card">
+        <div class="post-meta">November 17, 2026 · 4 min read</div>
+        <h3><a href="blog/verified-to-the-cent.html">$3.9 Billion, Verified to the Cent: What It Taught Me About Trusting Data</a></h3>
+        <p class="post-sum">I reconciled $3.9 billion in government purchase orders across eight finance systems, down to the cent. Four simple habits caught most of the data problems early.</p>
+        <span class="post-more" aria-hidden="true">Read article →</span>
+      </article>
+      <article class="post-card">
+        <div class="post-meta">November 5, 2026 · 5 min read</div>
+        <h3><a href="blog/ai-in-erp.html">AI in ERP: Start With the Data, Not the Chatbot</a></h3>
+        <p class="post-sum">Every major ERP vendor is adding AI agents, but only 5% of businesses say their data is fully ready for AI. Fix the data and the controls first, then let AI do the work.</p>
+        <span class="post-more" aria-hidden="true">Read article →</span>
+      </article>
+    </div>
   </section>
 
   <section id="about">

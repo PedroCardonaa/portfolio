@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>$3.9 Billion, Verified to the Cent: What It Taught Me About Trusting Data | Pedro J. Cardona Acevedo</title>
+<meta name="description" content="What reconciling $3.9 billion in government purchase orders to the cent taught me about building data people can trust.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23000'/%3E%3Crect x='3' y='3' width='58' height='58' rx='9' fill='none' stroke='%2352525b' stroke-width='2'/%3E%3Ctext x='32' y='42' text-anchor='middle' font-family='Arial,Helvetica,sans-serif' font-size='26' font-weight='800' fill='%23fafafa'%3EPC%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="post.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<nav>
+  <div class="inner">
+    <a class="nav-logo" href="../index.html">Pedro J. Cardona Acevedo</a>
+    <div class="nav-links">
+      <a href="../index.html#projects">Work</a>
+      <a href="../index.html#writing" aria-current="page">Writing</a>
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#resume">Résumé</a>
+      <a href="../index.html#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+<main id="main" tabindex="-1">
+  <article class="post">
+    <a class="back" href="../index.html#writing">← All writing</a>
+    <header>
+      <h1>$3.9 Billion, Verified to the Cent: What It Taught Me About Trusting Data</h1>
+      <p class="summary">I recently reconciled $3.9 billion in government purchase orders across eight finance systems, down to the cent. The lesson: a dashboard is only as trustworthy as the checks behind it, and four simple habits catch most data problems early.</p>
+      <p class="byline">By Pedro Cardona · <time>November 17, 2026</time> · 4 min read</p>
+    </header>
+    <h2>Why "close enough" isn't good enough</h2>
+    <p>Most dashboards get judged on how they look. The people who use them judge them on one question: can I repeat this number in a meeting without getting burned? If the answer is no, even a great-looking chart gets ignored.</p>
+    <p>Bad data is expensive, too. Gartner research puts the average cost of poor data quality at <a href="https://www.gartner.com/en/data-analytics/topics/data-quality">at least $12.9 million a year per organization</a>. In government, it also shows up as late payments to suppliers and decisions made on the wrong numbers.</p>
+    <h2>The project: eight systems, one set of numbers</h2>
+    <p>At work, I combined eight production data extracts, about 240,000 rows across 40 tabs, into the first unified procure-to-pay view for a group of government finance systems. The finished app covers roughly 8,800 suppliers across 60 agencies.</p>
+    <p>Before anyone saw it, I checked every headline figure against the source systems, to the cent. That meant $3.9 billion in purchase orders, $3.04 billion in purchasing agreements, $1.89 billion in pending obligations, $1.2 billion paid to suppliers and $396.7 million in invoices.</p>
+    <figure>
+      <svg class="chart" viewBox="0 0 600 428" role="img" aria-labelledby="c2-t" xmlns="http://www.w3.org/2000/svg"><title id="c2-t">Procure-to-pay totals verified to the cent, in billions of dollars</title><g><title>Purchase orders: $3.9B</title><text x="0" y="32" class="c-label">Purchase orders</text><rect x="0" y="44" width="450" height="26" rx="4" fill="#60a5fa"/><text x="462" y="64" class="c-value">$3.9B</text></g><g><title>Purchasing agreements: $3.04B</title><text x="0" y="116" class="c-label">Purchasing agreements</text><rect x="0" y="128" width="351" height="26" rx="4" fill="#60a5fa"/><text x="363" y="148" class="c-value">$3.04B</text></g><g><title>Pending obligations: $1.89B</title><text x="0" y="200" class="c-label">Pending obligations</text><rect x="0" y="212" width="218" height="26" rx="4" fill="#60a5fa"/><text x="230" y="232" class="c-value">$1.89B</text></g><g><title>Paid to suppliers: $1.2B</title><text x="0" y="284" class="c-label">Paid to suppliers</text><rect x="0" y="296" width="138" height="26" rx="4" fill="#60a5fa"/><text x="150" y="316" class="c-value">$1.2B</text></g><g><title>Invoices: $396.7M</title><text x="0" y="368" class="c-label">Invoices</text><rect x="0" y="380" width="46" height="26" rx="4" fill="#60a5fa"/><text x="58" y="400" class="c-value">$396.7M</text></g></svg>
+      <figcaption>The five headline totals in the procure-to-pay view, each checked against its source system before release. Chart by Pedro Cardona from his own verification work.</figcaption>
+      <details class="data-table"><summary>Show the data as a table</summary><table><caption>Procure-to-pay totals verified against source systems</caption><thead><tr><th scope="col">Measure</th><th scope="col">Verified total</th></tr></thead><tbody><tr><th scope="row">Purchase orders</th><td>$3.9 billion</td></tr><tr><th scope="row">Purchasing agreements</th><td>$3.04 billion</td></tr><tr><th scope="row">Pending obligations</th><td>$1.89 billion</td></tr><tr><th scope="row">Paid to suppliers</th><td>$1.2 billion</td></tr><tr><th scope="row">Invoices</th><td>$396.7 million</td></tr></tbody></table></details>
+    </figure>
+    <h2>Four habits that made the numbers hold up</h2>
+    <p>None of this needs fancy tools. These four habits did most of the work:</p>
+    <ol>
+      <li><strong>Tie every total to its source.</strong> If the dashboard says $3.9 billion, I should be able to show the query and the source report that produce the same number.</li>
+      <li><strong>Count rows at every step.</strong> Joins quietly drop or duplicate records. Comparing row counts before and after each step is the fastest way to catch it.</li>
+      <li><strong>Hunt for duplicates in master data.</strong> In one supplier file of about 376,000 rows, I found roughly 3,000 duplicate supplier IDs. Each one can split a supplier's history in two.</li>
+      <li><strong>Write down every assumption.</strong> Which date counts? Which status means "paid"? A one-line note per rule saves hours when someone asks why two reports disagree.</li>
+    </ol>
+    <p>This is the same mindset auditors call internal control: checks you can test and repeat. The GAO's <a href="https://www.gao.gov/greenbook">Green Book</a> sets those standards for federal agencies, and state and local governments can use it as a framework too.</p>
+    <h2>What surprised me</h2>
+    <p>The hardest part wasn't the math. It was discovering that some official reports disagreed with the systems they came from. One report meant to track invoice holds matched zero of the 3,337 supplier IDs it was supposed to cover.</p>
+    <p>That changed how I work. I now treat every source as a claim to verify, not a fact to copy. It also made the final view more useful, because it showed leaders gaps their own reporting had missed.</p>
+    <h2>The takeaway</h2>
+    <p>If you build reports for decision-makers, plan as much time for checking as for design. Tie totals to sources, count rows, hunt duplicates and write down your rules. Trust is the real deliverable, and you earn it one reconciled number at a time.</p>
+    <p>Wondering how this connects to AI? I wrote about why <a href="ai-in-erp.html">data readiness has to come before AI in ERP systems</a>.</p>
+    <footer class="post-end">
+      <aside class="author">
+        <img src="../headshot.jpg" alt="Portrait of Pedro Cardona in a gray suit and pink striped tie" width="800" height="800">
+        <p>I'm Pedro Cardona, a Penn State senior in Enterprise Technology Integration. I write about enterprise systems, operations technology, and AI. See more of my work on <a href="../index.html">my website</a>.</p>
+      </aside>
+      <h2 class="sources-h">Sources</h2>
+      <ul class="sources"><li>Gartner. <a href="https://www.gartner.com/en/data-analytics/topics/data-quality">Data quality: Best practices for accurate insights.</a></li><li>U.S. Government Accountability Office. <a href="https://www.gao.gov/greenbook">Standards for internal control in the federal government (the Green Book).</a></li></ul>
+    </footer>
+  </article>
+</main>
+<footer class="site-footer">Built by Pedro Cardona</footer>
+</body>
+</html>
