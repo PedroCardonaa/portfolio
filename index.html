@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pedro J. Cardona Acevedo | Builder</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23000'/%3E%3Crect x='3' y='3' width='58' height='58' rx='9' fill='none' stroke='%2352525b' stroke-width='2'/%3E%3Ctext x='32' y='42' text-anchor='middle' font-family='Arial,Helvetica,sans-serif' font-size='26' font-weight='800' fill='%23fafafa'%3EPC%3C/text%3E%3C/svg%3E">
+<meta name="description" content="Pedro J. Cardona Acevedo: Penn State Enterprise Technology Integration senior in Puerto Rico who builds dashboards, internal tools and web apps for government agencies and businesses.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -15,7 +17,7 @@
   --frame-hover: #3f3f46;
   --text: #fafafa;
   --muted: rgba(255,255,255,0.6);
-  --dim: rgba(255,255,255,0.4);
+  --dim: rgba(255,255,255,0.5);
   --faint: rgba(255,255,255,0.08);
   --green: #22c55e;
   --amber: #f59e0b;
@@ -179,12 +181,25 @@ nav .inner {
 section { padding: 80px 0; }
 .section-label {
   font-family: var(--mono); font-size: 10px; color: var(--dim);
-  letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 32px;
+  letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 32px; font-weight: 400;
   display: flex; align-items: center; gap: 14px;
 }
 .section-label::after {
   content: ''; flex: 1; height: 1px;
   background: linear-gradient(90deg, var(--frame), transparent);
+}
+
+.skip-link {
+  position: absolute; left: 16px; top: -60px; z-index: 100;
+  background: var(--text); color: var(--bg); padding: 10px 16px;
+  font-size: 13px; font-weight: 600; text-decoration: none;
+}
+.skip-link:focus { top: 12px; }
+main:focus { outline: none; }
+a:focus-visible, .project-header:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
+.project-header:focus-visible { outline-offset: -4px; }
+@media (prefers-reduced-motion: reduce) {
+  .status-dot-ping { animation: none; }
 }
 
 /* Project cards (framed) */
@@ -194,7 +209,6 @@ section { padding: 80px 0; }
   backdrop-filter: blur(6px);
   margin-bottom: 14px;
   transition: border-color 0.25s, background 0.25s;
-  cursor: pointer;
   overflow: hidden;
 }
 .project-card:hover {
@@ -207,7 +221,7 @@ section { padding: 80px 0; }
 }
 
 .project-header {
-  padding: 24px 28px;
+  padding: 24px 28px; cursor: pointer;
   display: flex; align-items: flex-start; justify-content: space-between;
   gap: 18px;
 }
@@ -407,8 +421,9 @@ footer {
 </style>
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 
-<canvas id="shader-canvas"></canvas>
+<canvas id="shader-canvas" aria-hidden="true"></canvas>
 
 <nav>
   <div class="inner">
@@ -426,6 +441,7 @@ footer {
   </div>
 </nav>
 
+<main id="main" tabindex="-1">
 <div class="container">
   <div class="hero-wrap">
     <div class="frame-outer">
@@ -451,7 +467,7 @@ footer {
 
 <div class="container">
   <section id="projects">
-    <div class="section-label">Selected Work</div>
+    <h2 class="section-label">Selected Work</h2>
     <div class="status-key">
       <span><span class="key-dot" style="background:var(--green)"></span><b>Live</b>: deployed and in real use</span>
       <span><span class="key-dot" style="background:var(--amber)"></span><b>In progress</b>: actively being built</span>
@@ -459,11 +475,11 @@ footer {
     </div>
 
     <!-- 01 IntegraPR -->
-    <div class="project-card active" onclick="toggle('integrapr')">
-      <div class="project-header">
+    <div class="project-card active">
+      <div class="project-header" role="button" tabindex="0" aria-expanded="true" aria-controls="body-integrapr" data-id="integrapr">
         <div class="project-meta">
           <div class="project-number">01 / GovTech / Puerto Rico</div>
-          <div class="project-title">IntegraPR / Government ERP Analytics Dashboard</div>
+          <h3 class="project-title">IntegraPR / Government ERP Analytics Dashboard</h3>
           <div class="project-desc">Live dashboard built with Alpha Omega Media for the Sub-Secretary of Government of Puerto Rico, for analysis and reporting on the Integra ERP system.</div>
         </div>
         <div class="project-status status-live"><span class="status-dot-wrap" style="width:8px;height:8px"><span class="status-dot-ping"></span><span class="status-dot" style="width:5px;height:5px"></span></span>Live</div>
@@ -489,11 +505,11 @@ footer {
     </div>
 
     <!-- 02 HOD -->
-    <div class="project-card" onclick="toggle('hod')">
-      <div class="project-header">
+    <div class="project-card">
+      <div class="project-header" role="button" tabindex="0" aria-expanded="false" aria-controls="body-hod" data-id="hod">
         <div class="project-meta">
           <div class="project-number">02 / Construction / Puerto Rico</div>
-          <div class="project-title">HOD Investment / Operations Platform</div>
+          <h3 class="project-title">HOD Investment / Operations Platform</h3>
           <div class="project-desc">Full internal ops platform for a construction company that ran on phone calls and paper, built from scratch in React and Firebase.</div>
         </div>
         <div class="project-status status-building"><span class="status-dot-wrap" style="width:8px;height:8px"><span class="status-dot-ping" style="background:var(--amber)"></span><span class="status-dot" style="background:var(--amber);width:5px;height:5px"></span></span>In progress</div>
@@ -530,11 +546,11 @@ footer {
     </div>
 
     <!-- 03 Scent Layer -->
-    <div class="project-card" onclick="toggle('scent')">
-      <div class="project-header">
+    <div class="project-card">
+      <div class="project-header" role="button" tabindex="0" aria-expanded="false" aria-controls="body-scent" data-id="scent">
         <div class="project-meta">
           <div class="project-number">03 / Consumer / Marketplace</div>
-          <div class="project-title">Scent Layer / Luxury Fragrance Discovery</div>
+          <h3 class="project-title">Scent Layer / Luxury Fragrance Discovery</h3>
           <div class="project-desc">Full-stack platform for curated niche and designer fragrances. Browse, blend with AI analysis, find similar scents, and order authentic 2ml to 30ml decants.</div>
         </div>
         <div class="project-status status-building"><span class="status-dot-wrap" style="width:8px;height:8px"><span class="status-dot-ping" style="background:var(--amber)"></span><span class="status-dot" style="background:var(--amber);width:5px;height:5px"></span></span>In progress</div>
@@ -567,11 +583,11 @@ footer {
     </div>
 
     <!-- 04 Zelvra -->
-    <div class="project-card" onclick="toggle('zelvra')">
-      <div class="project-header">
+    <div class="project-card">
+      <div class="project-header" role="button" tabindex="0" aria-expanded="false" aria-controls="body-zelvra" data-id="zelvra">
         <div class="project-meta">
           <div class="project-number">04 / OSINT / Intelligence</div>
-          <div class="project-title">Zelvra / OSINT Radar</div>
+          <h3 class="project-title">Zelvra / OSINT Radar</h3>
           <div class="project-desc">Watch-what-matters intel platform. Users input a target company and an intent (interview prep, stock research, news monitoring), and the radar fetches and filters relevant signals.</div>
         </div>
         <div class="project-status status-building"><span class="status-dot-wrap" style="width:8px;height:8px"><span class="status-dot-ping" style="background:var(--amber)"></span><span class="status-dot" style="background:var(--amber);width:5px;height:5px"></span></span>In progress</div>
@@ -601,11 +617,11 @@ footer {
     </div>
 
     <!-- 05 Dwello -->
-    <div class="project-card" onclick="toggle('dwello')">
-      <div class="project-header">
+    <div class="project-card">
+      <div class="project-header" role="button" tabindex="0" aria-expanded="false" aria-controls="body-dwello" data-id="dwello">
         <div class="project-meta">
           <div class="project-number">05 / PropTech</div>
-          <div class="project-title">Dwello / Property Management Platform</div>
+          <h3 class="project-title">Dwello / Property Management Platform</h3>
           <div class="project-desc">Full property management web app consolidating tenant communication, maintenance, lease management, and portfolio financial analytics for landlords.</div>
         </div>
         <div class="project-status status-building"><span class="status-dot-wrap" style="width:8px;height:8px"><span class="status-dot-ping" style="background:var(--amber)"></span><span class="status-dot" style="background:var(--amber);width:5px;height:5px"></span></span>In progress</div>
@@ -634,11 +650,11 @@ footer {
     </div>
 
     <!-- 06 Tradeucate -->
-    <div class="project-card" onclick="toggle('tradeucate')">
-      <div class="project-header">
+    <div class="project-card">
+      <div class="project-header" role="button" tabindex="0" aria-expanded="false" aria-controls="body-tradeucate" data-id="tradeucate">
         <div class="project-meta">
           <div class="project-number">06 / EdTech / FinTech</div>
-          <div class="project-title">Tradeucate / Trading &amp; Markets Education</div>
+          <h3 class="project-title">Tradeucate / Trading &amp; Markets Education</h3>
           <div class="project-desc">Learning platform for day trading, stock markets, finance, and real estate, with two AI agents that analyze trades and help users process losses.</div>
         </div>
         <div class="project-status status-building"><span class="status-dot-wrap" style="width:8px;height:8px"><span class="status-dot-ping" style="background:var(--amber)"></span><span class="status-dot" style="background:var(--amber);width:5px;height:5px"></span></span>In progress</div>
@@ -666,11 +682,11 @@ footer {
     </div>
 
     <!-- 07 HOD Internship -->
-    <div class="project-card" onclick="toggle('internship')">
-      <div class="project-header">
+    <div class="project-card">
+      <div class="project-header" role="button" tabindex="0" aria-expanded="false" aria-controls="body-internship" data-id="internship">
         <div class="project-meta">
           <div class="project-number">07 / Internship / HOD Investment</div>
-          <div class="project-title">Power Apps / Construction Operations</div>
+          <h3 class="project-title">Power Apps / Construction Operations</h3>
           <div class="project-desc">Built and deployed internal tools during full-time summer work at HOD Investment, still in active use.</div>
         </div>
         <div class="project-status status-live"><span class="status-dot-wrap" style="width:8px;height:8px"><span class="status-dot-ping"></span><span class="status-dot" style="width:5px;height:5px"></span></span>Live</div>
@@ -697,11 +713,11 @@ footer {
     </div>
 
     <!-- 08 e-STEPS -->
-    <div class="project-card" onclick="toggle('esteps')">
-      <div class="project-header">
+    <div class="project-card">
+      <div class="project-header" role="button" tabindex="0" aria-expanded="false" aria-controls="body-esteps" data-id="esteps">
         <div class="project-meta">
           <div class="project-number">08 / Internship / e-STEPS</div>
-          <div class="project-title">e-STEPS / Database Optimization &amp; Analytics Dashboard</div>
+          <h3 class="project-title">e-STEPS / Database Optimization &amp; Analytics Dashboard</h3>
           <div class="project-desc">SQL optimization plus a full real-time analytics dashboard for company leadership.</div>
         </div>
         <div class="project-status status-live"><span class="status-dot-wrap" style="width:8px;height:8px"><span class="status-dot-ping"></span><span class="status-dot" style="width:5px;height:5px"></span></span>Live</div>
@@ -729,11 +745,11 @@ footer {
     </div>
 
     <!-- 09 Crowd Meter -->
-    <div class="project-card" onclick="toggle('crowdmeter')">
-      <div class="project-header">
+    <div class="project-card">
+      <div class="project-header" role="button" tabindex="0" aria-expanded="false" aria-controls="body-crowdmeter" data-id="crowdmeter">
         <div class="project-meta">
           <div class="project-number">09 / Academic / Penn State</div>
-          <div class="project-title">Crowd Meter / Campus Occupancy System</div>
+          <h3 class="project-title">Crowd Meter / Campus Occupancy System</h3>
           <div class="project-desc">Class capstone project: designed and built a full occupancy monitoring system ready for real-world deployment.</div>
         </div>
         <div class="project-status status-done"><span class="status-dot" style="background:var(--muted);width:5px;height:5px"></span>Completed</div>
@@ -761,7 +777,7 @@ footer {
   </section>
 
   <section id="about">
-    <div class="section-label">About</div>
+    <h2 class="section-label">About</h2>
     <div class="about-layout">
     <img class="about-photo" src="headshot.jpg" alt="Portrait of Pedro Cardona in a gray suit and pink striped tie" width="800" height="800" loading="lazy">
     <div class="about-body">
@@ -812,15 +828,15 @@ footer {
   </section>
 
   <section id="resume">
-    <div class="section-label">Résumé</div>
+    <h2 class="section-label">Résumé</h2>
     <div class="resume-card">
       <div class="resume-inner">
       <div class="resume-group">
-        <h2 class="resume-h">Summary</h2>
+        <h3 class="resume-h">Summary</h3>
         <p class="resume-text">Business and BI analyst on Puerto Rico's government ERP modernization (PeopleSoft to Oracle Fusion Cloud) and the program team's backup cloud and AI engineer. Turns fragmented production data into verified dashboards and decision-ready analysis and builds workflow automations with AI coding agents. Reconciled $3.9B in purchase orders to the cent across eight finance systems. Earlier, the report runtimes cut ~40% at e-STEPS and moved 50+ field crews off paper timesheets at HOD Investment. Bilingual English/Spanish.</p>
       </div>
       <div class="resume-group">
-        <h2 class="resume-h">Experience</h2>
+        <h3 class="resume-h">Experience</h3>
         <div class="resume-item">
         <div class="resume-top"><span class="resume-title">Business &amp; BI Analyst / Incident Coordinator</span><span class="resume-date">Jul 2026 - Present</span></div>
         <div class="resume-org">Alpha Omega Media, LLC | Puerto Rico · Hybrid</div>
@@ -856,7 +872,7 @@ footer {
         </div>
       </div>
       <div class="resume-group">
-        <h2 class="resume-h">Education</h2>
+        <h3 class="resume-h">Education</h3>
         <div class="resume-top"><span class="resume-title">The Pennsylvania State University</span><span class="resume-date">Aug 2023 - May 2027</span></div>
         <p class="resume-text"><strong>Bachelor of Science</strong> Enterprise Technology Integration  ·  <strong>GPA: 3.21/4.00</strong></p>
         <p class="resume-text">Relevant coursework: Advanced Enterprise Integration, Enterprise Information Management and Storage Architecture, Organization of Data, Development and Documentation of Enterprise Web, IT Project Management</p>
@@ -866,7 +882,7 @@ footer {
         </div>
       </div>
       <div class="resume-group">
-        <h2 class="resume-h">Skills</h2>
+        <h3 class="resume-h">Skills</h3>
         <p class="resume-text"><strong>AI &amp; Automation:</strong> AI coding agents (Claude Code, Claude API), prompt design, AI workflow automation, API integrations, and testing and verification of AI-generated code in Python and JavaScript</p>
         <p class="resume-text"><strong>Cloud &amp; Enterprise Platforms:</strong> Oracle Fusion Cloud ERP (Payables, Procurement, Budgetary Control, General Ledger), Microsoft Azure Power Platform, Power Apps, AWS, Google Cloud (Firebase), Vercel</p>
         <p class="resume-text"><strong>Data &amp; BI:</strong> SQL (query optimization, indexing, joins), Power BI, Excel, ETL workflows, data warehouse reporting requirements, dashboard development, large-scale data reconciliation</p>
@@ -874,7 +890,7 @@ footer {
         <p class="resume-text"><strong>Consulting &amp; Delivery:</strong> Current-state process mapping, gap analysis, requirements gathering, testing, change management, user training, executive stakeholder communication, Agile, bilingual English/Spanish documentation</p>
       </div>
       <div class="resume-group">
-        <h2 class="resume-h">Featured Projects</h2>
+        <h3 class="resume-h">Featured Projects</h3>
         <div class="resume-item">
         <div class="resume-top"><span class="resume-title">AI-Built Automation Tools</span><span class="resume-date">Ongoing</span></div>
         <p class="resume-text">Directed and tested tools built with AI coding agents for real users: a contract-generation automation for a billboard permitting practice that replaced one-by-one manual drafting, and a Quizlet-style study app used by medical students.</p>
@@ -893,14 +909,14 @@ footer {
         </div>
       </div>
       <div class="resume-group">
-        <h2 class="resume-h">Certifications in Progress</h2>
+        <h3 class="resume-h">Certifications in Progress</h3>
         <div class="built-list">
           <div class="built-item">CompTIA Security+ (SY0-701)</div>
           <div class="built-item">ITIL Foundation</div>
         </div>
       </div>
       <div class="resume-group">
-        <h2 class="resume-h">LEADERSHIP &amp; SERVICE</h2>
+        <h3 class="resume-h">LEADERSHIP &amp; SERVICE</h3>
         <div class="built-list">
           <div class="built-item">Phi Eta Mu Fraternity, Beta Chapter, active member of a century-old leadership development organization in Puerto Rico.</div>
           <div class="built-item">Disaster Relief Volunteer, Puerto Rico, contributed materials and food for hurricane and earthquake recovery efforts.</div>
@@ -912,7 +928,7 @@ footer {
   </section>
 
   <section id="contact">
-    <div class="section-label">Contact</div>
+    <h2 class="section-label">Contact</h2>
     <div class="contact-links">
       <a class="contact-link" href="mailto:pedrojuancardona@gmail.com">
         <div class="contact-link-label">Email</div>
@@ -933,6 +949,7 @@ footer {
     </div>
   </section>
 </div>
+</main>
 
 <footer>
   <div class="container">
@@ -950,12 +967,20 @@ function toggle(id) {
   const isOpen = body.classList.contains('open');
   body.classList.toggle('open', !isOpen);
   card.classList.toggle('active', !isOpen);
+  card.querySelector('.project-header').setAttribute('aria-expanded', String(!isOpen));
 }
+document.querySelectorAll('.project-header[data-id]').forEach(function(h) {
+  h.addEventListener('click', function() { toggle(h.dataset.id); });
+  h.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(h.dataset.id); }
+  });
+});
 
 // WebGL shader background
 (function() {
   const canvas = document.getElementById('shader-canvas');
   if (!canvas || typeof THREE === 'undefined') return;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const vertexShader = `
     attribute vec3 position;
@@ -1021,6 +1046,7 @@ function toggle(id) {
     const w = window.innerWidth, h = window.innerHeight;
     renderer.setSize(w, h, false);
     uniforms.resolution.value = [w, h];
+    if (reduceMotion) renderer.render(scene, camera);
   }
   handleResize();
 
@@ -1032,7 +1058,10 @@ function toggle(id) {
     renderer.render(scene, camera);
     rafId = requestAnimationFrame(frame);
   }
-  function start() { if (rafId === null) { last = null; rafId = requestAnimationFrame(frame); } }
+  function start() {
+    if (reduceMotion) { renderer.render(scene, camera); return; }
+    if (rafId === null) { last = null; rafId = requestAnimationFrame(frame); }
+  }
   function stop() { if (rafId !== null) { cancelAnimationFrame(rafId); rafId = null; } }
   document.addEventListener('visibilitychange', function() { document.hidden ? stop() : start(); });
   start();
