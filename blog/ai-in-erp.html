@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI in ERP: Start With the Data, Not the Chatbot | Pedro J. Cardona Acevedo</title>
+<meta name="description" content="Every major ERP vendor is adding AI agents, but only 5% of businesses say their data is fully ready for AI. Fix the data and controls first.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23000'/%3E%3Crect x='3' y='3' width='58' height='58' rx='9' fill='none' stroke='%2352525b' stroke-width='2'/%3E%3Ctext x='32' y='42' text-anchor='middle' font-family='Arial,Helvetica,sans-serif' font-size='26' font-weight='800' fill='%23fafafa'%3EPC%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="post.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<nav>
+  <div class="inner">
+    <a class="nav-logo" href="../index.html">Pedro J. Cardona Acevedo</a>
+    <div class="nav-links">
+      <a href="../index.html#projects">Work</a>
+      <a href="../index.html#writing" aria-current="page">Writing</a>
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#resume">Résumé</a>
+      <a href="../index.html#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+<main id="main" tabindex="-1">
+  <article class="post">
+    <a class="back" href="../index.html#writing">← All writing</a>
+    <header>
+      <h1>AI in ERP: Start With the Data, Not the Chatbot</h1>
+      <p class="summary">Every major ERP vendor is adding AI agents, but only 5% of businesses in a 2026 Dun &amp; Bradstreet survey said their data is fully ready for AI. From my work on a government ERP project, the lesson is clear: fix the data and the controls first, then let AI do the work.</p>
+      <p class="byline">By Pedro Cardona · <time>November 5, 2026</time> · 5 min read</p>
+    </header>
+    <h2>AI is coming to every ERP. Most data isn't ready for it.</h2>
+    <p>If your organization plans to add AI to its ERP system, start with a data readiness check, not a chatbot demo. AI agents can only act on what the ERP knows, and in most organizations that data still has gaps.</p>
+    <p>Dun &amp; Bradstreet surveyed 10,000 businesses in 32 countries and found that 97% have active AI initiatives. Only 5% said their data is fully ready for AI (<a href="https://www.dnb.com/en-us/newsroom/press-releases/dnb-survey-finds-ai-impact-inflection-point.html">read the survey release</a>).</p>
+    <figure>
+      <svg class="chart" viewBox="0 0 600 344" role="img" aria-labelledby="c1-t" xmlns="http://www.w3.org/2000/svg"><title id="c1-t">Share of 10,000 businesses surveyed by Dun &amp; Bradstreet, 2026</title><g><title>Have active AI initiatives: 97%</title><text x="0" y="32" class="c-label">Have active AI initiatives</text><rect x="0" y="44" width="450" height="26" rx="4" fill="#71717a"/><text x="462" y="64" class="c-value">97%</text></g><g><title>Cite limited data access as an obstacle: 50%</title><text x="0" y="116" class="c-label">Cite limited data access as an obstacle</text><rect x="0" y="128" width="232" height="26" rx="4" fill="#71717a"/><text x="244" y="148" class="c-value">50%</text></g><g><title>Cite data quality as an obstacle: 40%</title><text x="0" y="200" class="c-label">Cite data quality as an obstacle</text><rect x="0" y="212" width="186" height="26" rx="4" fill="#71717a"/><text x="198" y="232" class="c-value">40%</text></g><g><title>Say their data is fully ready for AI: 5%</title><text x="0" y="284" class="c-label">Say their data is fully ready for AI</text><rect x="0" y="296" width="23" height="26" rx="4" fill="#60a5fa"/><text x="35" y="316" class="c-value">5%</text></g></svg>
+      <figcaption>Almost every business is pursuing AI, but only 5% say their data is ready for it. Chart by Pedro Cardona; data from the <a href="https://www.dnb.com/en-us/newsroom/press-releases/dnb-survey-finds-ai-impact-inflection-point.html">Dun &amp; Bradstreet 2026 survey</a>.</figcaption>
+      <details class="data-table"><summary>Show the data as a table</summary><table><caption>Dun &amp; Bradstreet 2026 survey of 10,000 businesses</caption><thead><tr><th scope="col">Finding</th><th scope="col">Share of businesses</th></tr></thead><tbody><tr><th scope="row">Have active AI initiatives</th><td>97%</td></tr><tr><th scope="row">Cite limited data access as an obstacle</th><td>50%</td></tr><tr><th scope="row">Cite data quality as an obstacle</th><td>40%</td></tr><tr><th scope="row">Say their data is fully ready for AI</th><td>5%</td></tr></tbody></table></details>
+    </figure>
+    <h2>What vendors are promising</h2>
+    <p>The promise is real. Gartner predicts that finance teams using cloud ERP with embedded AI assistants will close their books 30% faster by 2028, and that 62% of cloud ERP spending will go to AI-enabled tools by 2027 (<a href="https://www.cpapracticeadvisor.com/2026/03/10/gartner-predicts-embedded-ai-in-cloud-erp-applications-will-drive-a-30-faster-financial-close-by-2028/179540/">Gartner, via CPA Practice Advisor</a>).</p>
+    <p>SAP shows where this is heading. It announced role-based Joule assistants that manage AI agents across finance, procurement, HR, and supply chain, including a cash management agent that reviews bank statements to support reconciliation (<a href="https://www.techtarget.com/searchsap/news/366632263/SAP-pitches-role-based-Joule-assistants-as-ERP-work-partners">TechTarget</a>).</p>
+    <blockquote>
+      <p>“It's about completing transactions that are compliant and 99.9% reliable.”</p>
+      <cite>Jon Reed, Diginomica, quoted by <a href="https://www.techtarget.com/searchsap/news/366632263/SAP-pitches-role-based-Joule-assistants-as-ERP-work-partners">TechTarget</a></cite>
+    </blockquote>
+    <p>That quote names the gap. Large language models are probabilistic, while ERP transactions have to be exact. An agent that is right most of the time is fine for drafting a report. It is not fine for paying a vendor.</p>
+    <h2>Why the data decides the outcome</h2>
+    <p>I work at Alpha Omega, the independent verification and validation (IV&amp;V) provider on a large ERP project for the Puerto Rico government. My job is reporting: I build the dashboards leaders use to see where the project stands.</p>
+    <p>The biggest lesson so far is that data problems hide in the move from old systems to new ones. Records that look fine in a legacy system can break a process once they land in the ERP, and someone has to catch that before it reaches a payment.</p>
+    <p>AI does not remove that risk. It scales it. If an agent acts on bad master data, it makes the same mistake faster and across more transactions. In the same survey, 50% cited limited data access and 40% cited data quality as obstacles.</p>
+    <h2>Where AI helps first</h2>
+    <p>That does not mean waiting. In my view, the smartest first uses are the ones where AI checks or explains the data instead of acting on it alone:</p>
+    <ul>
+      <li><strong>Data quality checks:</strong> flag duplicate vendors, missing fields, and odd values during migration, before they cause problems.</li>
+      <li><strong>Reconciliation support:</strong> match bank statements to the ledger, then send exceptions to a person to approve.</li>
+      <li><strong>Plain-language reporting:</strong> let leaders ask questions of ERP data and get answers tied to the same numbers in their dashboards.</li>
+    </ul>
+    <p>Each one keeps a person in charge of the final decision. That is the same idea behind IV&amp;V: an independent check before anyone trusts the system.</p>
+    <h2>The takeaway</h2>
+    <p>AI in ERP is worth the investment, but the order matters. Clean the data, decide who approves what, and validate the AI's output the same way you would validate any new system. Then let it scale.</p>
+    <h2>Connect</h2>
+    <p>Questions or feedback? Reach me here:</p>
+    <ul class="connect">
+      <li>Email: <a href="mailto:pedrojuancardona@gmail.com">pedrojuancardona@gmail.com</a></li>
+      <li>Website: <a href="../index.html">Pedro Cardona portfolio</a></li>
+      <li>LinkedIn: <a href="https://www.linkedin.com/in/pedro-cardona-973149291">Pedro Cardona</a></li>
+    </ul>
+    <footer class="post-end">
+      <aside class="author">
+        <img src="../headshot.jpg" alt="Portrait of Pedro Cardona in a gray suit and pink striped tie" width="800" height="800">
+        <p>I'm Pedro Cardona, a Penn State senior in Enterprise Technology Integration. I write about enterprise systems, operations technology, and AI. See more of my work on <a href="../index.html">my website</a>.</p>
+      </aside>
+      <h2 class="sources-h">Sources</h2>
+      <ul class="sources"><li>Dun &amp; Bradstreet. (2026, May 4). <a href="https://www.dnb.com/en-us/newsroom/press-releases/dnb-survey-finds-ai-impact-inflection-point.html">Global survey of 10,000 businesses finds AI impact at an inflection point.</a></li><li>CPA Practice Advisor. (2026, March 10). <a href="https://www.cpapracticeadvisor.com/2026/03/10/gartner-predicts-embedded-ai-in-cloud-erp-applications-will-drive-a-30-faster-financial-close-by-2028/179540/">Gartner predicts embedded AI in cloud ERP applications will drive a 30% faster financial close by 2028.</a></li><li>Essex, D. (2025, October 8). <a href="https://www.techtarget.com/searchsap/news/366632263/SAP-pitches-role-based-Joule-assistants-as-ERP-work-partners">SAP pitches role-based Joule assistants as ERP work partners.</a> TechTarget.</li></ul>
+    </footer>
+  </article>
+</main>
+<footer class="site-footer">Built by Pedro Cardona</footer>
+</body>
+</html>
